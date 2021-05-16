@@ -488,6 +488,7 @@ __meta__ = {
 }
 
 [node name="tween" type="Tween" parent="hud/skill_box/skill_04/progress"]
+
 [connection signal="timeout" from="hero/poison_timer" to="." method="_on_poison_timer_timeout"]
 [connection signal="body_entered" from="enemy_area" to="." method="_on_enemy_area_body_entered"]
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
