@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scripts/enemies/slime_red.gd" type="Script" id=1]
+[ext_resource path="res://sprites/enemies/slime.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="Animation" id=2]
+resource_name = "hurt"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.72549, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0.72549, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0.72549, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 0.9 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.19209e-07, 1.43051e-06 ), Vector2( 0, 0.7 ), Vector2( 1.19209e-07, 1.43051e-06 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "shoot"
+length = 0.5
+
+[node name="slime_red" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 2147483648
+script = ExtResource( 1 )
+max_health = 10
+shoot_delay = 2.0
+
+[node name="col" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -2 )
+shape = SubResource( 1 )
+
+[node name="sprite" type="Sprite" parent="."]
+position = Vector2( 2.50335e-08, 0.553003 )
+scale = Vector2( 1.079, 0.921 )
+texture = ExtResource( 2 )
+vframes = 3
+
+[node name="range_ray" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( -100, 0 )
+collision_mask = 2147483649
+
+[node name="timer" type="Timer" parent="."]
+
+[node name="anim" type="AnimationPlayer" parent="."]
+anims/hurt = SubResource( 2 )
+anims/idle = SubResource( 3 )
+anims/shoot = SubResource( 4 )
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

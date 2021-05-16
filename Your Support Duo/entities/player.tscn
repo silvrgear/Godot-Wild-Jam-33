@@ -1,0 +1,494 @@
+[gd_scene load_steps=27 format=2]
+
+[ext_resource path="res://sprites/units/healer.png" type="Texture" id=1]
+[ext_resource path="res://sprites/units/hero_weapon.png" type="Texture" id=2]
+[ext_resource path="res://sprites/units/healer_weapon.png" type="Texture" id=3]
+[ext_resource path="res://sprites/units/hero.png" type="Texture" id=4]
+[ext_resource path="res://scripts/player.gd" type="Script" id=5]
+[ext_resource path="res://sprites/mana_bar_under.png" type="Texture" id=6]
+[ext_resource path="res://sprites/mana_bar_over.png" type="Texture" id=7]
+[ext_resource path="res://sprites/mana_bar_progress.png" type="Texture" id=8]
+[ext_resource path="res://scripts/support.gd" type="Script" id=9]
+[ext_resource path="res://sprites/skill_01_icon.png" type="Texture" id=10]
+[ext_resource path="res://sprites/skill_progress.png" type="Texture" id=11]
+[ext_resource path="res://sprites/skill_03_icon.png" type="Texture" id=12]
+[ext_resource path="res://sprites/skill_02_icon.png" type="Texture" id=13]
+[ext_resource path="res://sprites/skill_04.png" type="Texture" id=14]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4, 8 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.72549, 0, 0, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.8, 0.8, 0.8, 0 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.764706, 0.764706, 0.764706, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.101961, 0.109804, 0.172549, 1 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 4, 10 )
+
+[sub_resource type="RectangleShape2D" id=5]
+
+[sub_resource type="Animation" id=6]
+tracks/0/type = "value"
+tracks/0/path = NodePath("hero/weap:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 4, -4 ), Vector2( 14, -4 ), Vector2( 18, 3 ), Vector2( 17, 6 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("hero/weap:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ -15.0, 45.0, 75.0, 105.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("hero/weap:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 1.375, 1.375 ), Vector2( 1.25, 1.25 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("hitbox:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("hitbox:monitorable")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("hero:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "dance"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("hero:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 24, 0 ), Vector2( 24, -10 ), Vector2( 24, 0 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("hero/weap:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 6, -4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("hero/weap:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("hero:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 24, 0 ), Vector2( 24, 0.7 ), Vector2( 24, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("hero:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 0.9 ), Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("hero:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "poison"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("hero:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.141176, 0.807843, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("hero:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.72549, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0.72549, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0.72549, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "dance"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("support:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -16, 0 ), Vector2( -16, -10 ), Vector2( -16, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("support:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("support:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -16, 0.7 ), Vector2( -16, 0 ), Vector2( -16, 0.7 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("support:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.1, 0.9 ), Vector2( 1, 1 ), Vector2( 1.1, 0.9 ) ]
+}
+
+[node name="player" type="KinematicBody2D"]
+collision_mask = 0
+script = ExtResource( 5 )
+
+[node name="col" type="CollisionShape2D" parent="."]
+position = Vector2( 24, 0 )
+shape = SubResource( 1 )
+
+[node name="hero" type="Sprite" parent="."]
+position = Vector2( 24, 0 )
+texture = ExtResource( 4 )
+vframes = 3
+
+[node name="weap" type="Sprite" parent="hero"]
+position = Vector2( 4, -4 )
+rotation = -0.261799
+z_index = -1
+texture = ExtResource( 2 )
+vframes = 3
+
+[node name="poison_timer" type="Timer" parent="hero"]
+wait_time = 1.5
+
+[node name="hero_hp_bar" type="ProgressBar" parent="."]
+margin_left = 8.0
+margin_top = -29.0
+margin_right = 40.0
+margin_bottom = -25.0
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
+value = 40.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="support" type="Sprite" parent="."]
+position = Vector2( -16, 0 )
+texture = ExtResource( 1 )
+script = ExtResource( 9 )
+
+[node name="mana_canister" type="Node2D" parent="support"]
+z_index = -1
+
+[node name="mana_progress" type="TextureProgress" parent="support/mana_canister"]
+margin_left = -15.0
+margin_top = -7.0
+margin_right = 1.0
+margin_bottom = 9.0
+value = 60.0
+texture_under = ExtResource( 6 )
+texture_over = ExtResource( 7 )
+texture_progress = ExtResource( 8 )
+fill_mode = 3
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="weap" type="Sprite" parent="support"]
+position = Vector2( 8, 2 )
+rotation = 1.0472
+z_index = -1
+texture = ExtResource( 3 )
+
+[node name="enemy_area" type="Area2D" parent="."]
+position = Vector2( 38, -2 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="col" type="CollisionShape2D" parent="enemy_area"]
+self_modulate = Color( 0, 1, 0.298039, 1 )
+position = Vector2( -2, 0 )
+shape = SubResource( 4 )
+
+[node name="hitbox" type="Area2D" parent="."]
+position = Vector2( 42, -2 )
+monitoring = false
+monitorable = false
+collision_layer = 0
+collision_mask = 2147483650
+
+[node name="col" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource( 5 )
+
+[node name="follow_cam" type="Node2D" parent="."]
+position = Vector2( 100, 0 )
+
+[node name="cam" type="Camera2D" parent="follow_cam"]
+current = true
+limit_left = -100
+limit_top = 0
+limit_bottom = 180
+limit_smoothed = true
+smoothing_enabled = true
+editor_draw_screen = false
+
+[node name="hero_anim" type="AnimationPlayer" parent="."]
+anims/attack = SubResource( 6 )
+anims/dance = SubResource( 7 )
+anims/move = SubResource( 8 )
+
+[node name="effects_anim" type="AnimationPlayer" parent="."]
+anims/poison = SubResource( 9 )
+
+[node name="hurt_anim" type="AnimationPlayer" parent="."]
+anims/hurt_blink = SubResource( 10 )
+
+[node name="supp_anim" type="AnimationPlayer" parent="."]
+anims/dance = SubResource( 11 )
+anims/move = SubResource( 12 )
+
+[node name="hud" type="CanvasLayer" parent="."]
+
+[node name="skill_box" type="HBoxContainer" parent="hud"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -38.0
+margin_top = -20.0
+margin_right = 38.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="skill_01" type="TextureRect" parent="hud/skill_box"]
+visible = false
+margin_right = 16.0
+margin_bottom = 20.0
+texture = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progress" type="TextureProgress" parent="hud/skill_box/skill_01"]
+margin_right = 16.0
+margin_bottom = 16.0
+texture_progress = ExtResource( 11 )
+fill_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tween" type="Tween" parent="hud/skill_box/skill_01/progress"]
+
+[node name="skill_02" type="TextureRect" parent="hud/skill_box"]
+visible = false
+margin_right = 16.0
+margin_bottom = 20.0
+texture = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progress" type="TextureProgress" parent="hud/skill_box/skill_02"]
+margin_right = 16.0
+margin_bottom = 16.0
+texture_progress = ExtResource( 11 )
+fill_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tween" type="Tween" parent="hud/skill_box/skill_02/progress"]
+
+[node name="skill_03" type="TextureRect" parent="hud/skill_box"]
+visible = false
+margin_right = 16.0
+margin_bottom = 20.0
+texture = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progress" type="TextureProgress" parent="hud/skill_box/skill_03"]
+margin_right = 16.0
+margin_bottom = 16.0
+texture_progress = ExtResource( 11 )
+fill_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tween" type="Tween" parent="hud/skill_box/skill_03/progress"]
+
+[node name="skill_04" type="TextureRect" parent="hud/skill_box"]
+visible = false
+margin_right = 16.0
+margin_bottom = 20.0
+texture = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progress" type="TextureProgress" parent="hud/skill_box/skill_04"]
+margin_right = 16.0
+margin_bottom = 16.0
+texture_progress = ExtResource( 11 )
+fill_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tween" type="Tween" parent="hud/skill_box/skill_04/progress"]
+[connection signal="timeout" from="hero/poison_timer" to="." method="_on_poison_timer_timeout"]
+[connection signal="body_entered" from="enemy_area" to="." method="_on_enemy_area_body_entered"]
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="animation_finished" from="hero_anim" to="." method="_on_hero_anim_animation_finished"]
