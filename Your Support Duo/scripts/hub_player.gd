@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
-export var speed = 180
+export var speed = 115
+var move_dir
 var velocity = Vector2.ZERO
 
 onready var interact = $interact
@@ -10,21 +11,19 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	if Input.is_action_pressed("right"):
-		velocity.x = speed
-	elif Input.is_action_pressed("left"):
-		velocity.x = -speed
-	else:
-		velocity.x = 0
-		
-	if Input.is_action_pressed("down"):
-		velocity.y = speed
-	elif Input.is_action_pressed("up"):
-		velocity.y = -speed
-	else:
-		velocity.y = 0
-
+	
+	move_dir = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
+	
+	velocity.x = move_dir * speed
 	velocity = move_and_slide(velocity)
+	
+	_sprite_update()
+
+func _sprite_update():
+	if Input.is_action_pressed("right"):
+		$sprite.flip_h = false
+	elif Input.is_action_pressed("left"):
+		$sprite.flip_h = true
 
 func _process(delta):
 	if interact.get_overlapping_bodies():
@@ -34,5 +33,6 @@ func _process(delta):
 
 func _input(event):
 	if Input.is_action_just_pressed("interact") and interactable_object != null:
-		interactable_object.interact()
+		if interactable_object.has_method("interact"):
+			interactable_object.interact()
 		pass
