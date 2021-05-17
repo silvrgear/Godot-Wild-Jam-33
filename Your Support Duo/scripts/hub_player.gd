@@ -25,14 +25,18 @@ func _sprite_update():
 	elif Input.is_action_pressed("left"):
 		$sprite.flip_h = true
 
-func _process(delta):
-	if interact.get_overlapping_bodies():
-		interactable_object = interact.get_overlapping_bodies()[0]
-	else:
-		interactable_object = null
-
 func _input(event):
 	if Input.is_action_just_pressed("interact") and interactable_object != null:
 		if interactable_object.has_method("interact"):
 			interactable_object.interact()
 		pass
+
+
+func _on_interact_body_entered(body):
+		interactable_object = body
+		interactable_object.player_is_near = true
+
+
+func _on_interact_body_exited(body):
+		interactable_object.player_is_near = false
+		interactable_object = null

@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://sprites/house/cabinet.png" type="Texture" id=1]
 [ext_resource path="res://scripts/cabinet.gd" type="Script" id=2]
+[ext_resource path="res://fonts/futile_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://houseUI/houseUIkey_float.tres" type="Animation" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 13, 13 )
@@ -18,3 +20,20 @@ texture = ExtResource( 1 )
 visible = false
 position = Vector2( 0, 3 )
 shape = SubResource( 1 )
+
+[node name="key" type="Label" parent="."]
+visible = false
+margin_left = -1.0
+margin_top = -13.0
+margin_right = 39.0
+margin_bottom = 1.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 3 )
+text = "F"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
+autoplay = "houseUIkey_float"
+anims/houseUIkey_float = ExtResource( 4 )
