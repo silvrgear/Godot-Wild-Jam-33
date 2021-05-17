@@ -33,9 +33,9 @@ func _physics_process(delta):
 
 func _on_anim_animation_finished(anim_name):
 	if anim_name == "shoot":
-		$timer.start(shoot_delay)
-		
 		$anim.play("idle")
+		
+		$timer.start(shoot_delay)
 	pass # Replace with function body.
 
 

@@ -12,8 +12,8 @@ func _physics_process(delta):
 func _on_projectile_body_entered(body):
 	if $sprite.frame == 1:
 		body.apply_poison()
-	
-	body.hurt(damage)
+	else:
+		body.hurt(damage)
 	
 	#spawn feedback effect
 	self.queue_free()

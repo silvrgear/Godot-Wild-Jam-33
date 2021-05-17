@@ -23,7 +23,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 8 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 353, 0 ), Vector2( -388, 0 ) ]
+"values": [ Vector2( 353, 0 ), Vector2( -483, 0 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -105,24 +105,22 @@ __meta__ = {
 [node name="label" type="Label" parent="gui/end/headline"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -388.0
-margin_right = -328.0
+margin_left = 206.7
+margin_right = 441.7
+rect_pivot_offset = Vector2( 190, 0 )
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.239216, 0.396078, 0.458824, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0.392157 )
 text = "No reward is given to you as the hero takes it all."
-align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="anim" type="AnimationPlayer" parent="gui/end/headline"]
-autoplay = "move"
 anims/move = SubResource( 3 )
 
 [node name="blinker" type="AnimationPlayer" parent="gui/end/headline"]
-autoplay = "blink"
 anims/blink = SubResource( 4 )
 
 [node name="home_btn" type="Button" parent="gui/end"]

@@ -1,11 +1,12 @@
 extends Node2D
 
-var skill_01_unlocked = false
+var skill_unlocked = false
 
 func _ready():
 	$timer.start()
 	
-#	$characters/player.get_node("follow_cam/cam").limit_right = 1320
+	$characters/player.get_node("follow_cam/cam").limit_right = 1320
+	$objects/treasure_end.jokes = "No reward is given to you as the hero takes it all."
 	pass
 
 func _input(event):
@@ -14,7 +15,7 @@ func _input(event):
 	pass
 
 func _process(delta):
-	if skill_01_unlocked == false:
+	if skill_unlocked == false:
 		if $characters/player.curr_health == 80:
 			get_tree().paused = true
 			$gui/skill_tutorial.show()
@@ -27,7 +28,7 @@ func _on_skill_btn_pressed():
 	$characters/player.get_node("support").skills["cure"] = true
 	$characters/player.get_node("hud/skill_box/skill_01").show()
 	
-	skill_01_unlocked = true
+	skill_unlocked = true
 	pass # Replace with function body.
 
 

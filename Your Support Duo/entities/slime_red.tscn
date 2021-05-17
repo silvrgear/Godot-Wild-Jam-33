@@ -65,8 +65,7 @@ position = Vector2( 0, -2 )
 shape = SubResource( 1 )
 
 [node name="sprite" type="Sprite" parent="."]
-position = Vector2( 2.50335e-08, 0.553003 )
-scale = Vector2( 1.079, 0.921 )
+position = Vector2( 1.19209e-07, 1.43051e-06 )
 texture = ExtResource( 2 )
 vframes = 3
 

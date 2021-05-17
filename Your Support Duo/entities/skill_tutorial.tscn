@@ -1,0 +1,126 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://fonts/futile_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://sprites/skill_01_icon.png" type="Texture" id=2]
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0, 0, 0, 0.588235 )
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.584314, 0.584314, 0.584314, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.101961, 0.109804, 0.172549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.309804, 0.309804, 0.309804, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.101961, 0.109804, 0.172549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=17]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.101961, 0.109804, 0.172549, 1 )
+
+[sub_resource type="InputEventAction" id=18]
+action = "shortcut"
+pressed = true
+
+[sub_resource type="ShortCut" id=19]
+shortcut = SubResource( 18 )
+
+[node name="skill_tutorial" type="Panel"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="skill_icon" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 8.0
+margin_bottom = 8.0
+rect_scale = Vector2( 5, 5 )
+rect_pivot_offset = Vector2( 8, 16 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -130.0
+margin_top = -24.0
+margin_right = 130.0
+margin_bottom = 24.0
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( 130, 72 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.705882 )
+text = "Skill Unlocked: Cure
+Effect: Heal the Hero for 20 HP
+Mana Cost: 20 Mana"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="skill_btn" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -28.0
+margin_top = -12.0
+margin_right = 28.0
+margin_bottom = 12.0
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( 28, 120 )
+custom_styles/hover = SubResource( 15 )
+custom_styles/pressed = SubResource( 16 )
+custom_styles/normal = SubResource( 17 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.101961, 0.109804, 0.172549, 1 )
+custom_colors/font_color_hover = Color( 0.101961, 0.109804, 0.172549, 1 )
+custom_colors/font_color_pressed = Color( 0.101961, 0.109804, 0.172549, 1 )
+shortcut_in_tooltip = false
+shortcut = SubResource( 19 )
+text = "OK!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hint_lbl" type="Label" parent="skill_btn"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = 18.0
+margin_right = 100.0
+margin_bottom = 32.0
+rect_scale = Vector2( 0.6, 0.6 )
+rect_pivot_offset = Vector2( 100, 7 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.545098, 0.545098, 0.545098, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.392157 )
+text = "or click space to continue"

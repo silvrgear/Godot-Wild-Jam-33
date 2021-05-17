@@ -12,6 +12,8 @@ var skills = {
 var curr_mana
 var max_mana = 100
 
+var at_end = false
+
 func _ready():
 	curr_mana = max_mana
 	
@@ -24,14 +26,15 @@ func _ready():
 func _input(event):
 	var skill_01_prog = player.get_node("hud/skill_box/skill_01/progress")
 	
-	if event.is_action_pressed("q") and skills["cure"] == true:
-		if skill_01_prog.value == 0 and curr_mana >= 20:
-			curr_mana -= 20
-			$mana_canister/mana_progress.value = curr_mana
-			
-			player.heal(20)
-			skill_01_prog.value = 100
-			skill_cd(skill_01_prog, 4.0)
+	if at_end == false:
+		if event.is_action_pressed("q") and skills["cure"] == true:
+			if skill_01_prog.value == 0 and curr_mana >= 20:
+				curr_mana -= 20
+				$mana_canister/mana_progress.value = curr_mana
+				
+				player.heal(20)
+				skill_01_prog.value = 100
+				skill_cd(skill_01_prog, 4.0)
 	pass
 
 func skill_cd(obj, time):
