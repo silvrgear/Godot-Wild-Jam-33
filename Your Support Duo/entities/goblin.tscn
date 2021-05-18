@@ -204,5 +204,6 @@ anims/idle = SubResource( 4 )
 
 [node name="hurt_anim" type="AnimationPlayer" parent="."]
 anims/hurt = SubResource( 5 )
+
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

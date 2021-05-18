@@ -15,15 +15,15 @@ var poisoned = false
 var curr_health
 var max_health = 100
 
-var hero_frame = 0
-var weap_frame = 0
+var hero_frame
+var weap_frame
 
 func _ready():
 	$hero_anim.play("move")
 	$supp_anim.play("move")
 	
-	$hero.frame = hero_frame
-	$hero/weap.frame = weap_frame
+#	$hero.frame = hero_frame
+#	$hero/weap.frame = weap_frame
 	
 	curr_health = max_health
 	$hero_hp_bar.value = curr_health
@@ -36,6 +36,10 @@ func _ready():
 	$chatbox.show()
 	$chat_anim.play("chat")
 	pass
+
+func initialize_hero():
+	$hero.frame = hero_frame
+	$hero/weap.frame = weap_frame
 
 func _physics_process(delta):
 	if battling_enemy == true:
