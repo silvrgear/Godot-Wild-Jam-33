@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/enemies/goblin.gd" type="Script" id=1]
 [ext_resource path="res://sprites/enemies/goblin_weapon.png" type="Texture" id=2]
 [ext_resource path="res://sprites/enemies/goblin.png" type="Texture" id=3]
+[ext_resource path="res://sounds/sword-knife_sfx.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -84,6 +85,18 @@ tracks/5/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ false, true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("knife:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.3, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -176,11 +189,11 @@ visible = false
 shape = SubResource( 1 )
 
 [node name="sprite" type="Sprite" parent="."]
-position = Vector2( -13, -2 )
+position = Vector2( 1.19209e-07, 1.43051e-06 )
 texture = ExtResource( 3 )
 
 [node name="weapon" type="Sprite" parent="sprite"]
-position = Vector2( -6, 0.999999 )
+position = Vector2( -6, 2 )
 z_index = -1
 texture = ExtResource( 2 )
 
@@ -205,5 +218,9 @@ anims/idle = SubResource( 4 )
 [node name="hurt_anim" type="AnimationPlayer" parent="."]
 anims/hurt = SubResource( 5 )
 
+[node name="knife" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -5.0
+pitch_scale = 0.9
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

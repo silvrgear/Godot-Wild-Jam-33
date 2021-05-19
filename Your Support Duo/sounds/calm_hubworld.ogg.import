@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/calm_hubworld.ogg-67ec166e66522aa3ee9dc8d006f8284f.oggstr"
+
+[deps]
+
+source_file="res://sounds/calm_hubworld.ogg"
+dest_files=[ "res://.import/calm_hubworld.ogg-67ec166e66522aa3ee9dc8d006f8284f.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

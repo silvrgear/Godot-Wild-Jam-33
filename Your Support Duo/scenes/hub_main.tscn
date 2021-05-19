@@ -1,14 +1,16 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/hub_main.gd" type="Script" id=1]
 [ext_resource path="res://houseUI/hub_player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://houseUI/bed.tscn" type="PackedScene" id=3]
+[ext_resource path="res://sprites/house/bed.png" type="Texture" id=3]
 [ext_resource path="res://houseUI/action_figure.tscn" type="PackedScene" id=4]
 [ext_resource path="res://houseUI/cabinet.tscn" type="PackedScene" id=5]
 [ext_resource path="res://houseUI/door.tscn" type="PackedScene" id=6]
 [ext_resource path="res://houseUI/book.tscn" type="PackedScene" id=7]
 [ext_resource path="res://sprites/house/house_tilemap.png" type="Texture" id=8]
 [ext_resource path="res://sprites/house/bookshelf.png" type="Texture" id=9]
+[ext_resource path="res://sounds/calm_hubworld.ogg" type="AudioStream" id=10]
+[ext_resource path="res://fonts/futile_font.tres" type="DynamicFont" id=11]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 4, 32, 0, 32, 0, 0, 4, 0 )
@@ -244,8 +246,28 @@ points = PoolVector2Array( 12, 0, 16, 0, 16, 32, 12, 32 )
 } ]
 12/z_index = 0
 
+[sub_resource type="Animation" id=7]
+resource_name = "fade"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("tutorial:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [node name="hub_main" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="bg_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+autoplay = true
 
 [node name="tile_map" type="TileMap" parent="."]
 z_index = -2
@@ -258,13 +280,11 @@ tile_data = PoolIntArray( -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0
 position = Vector2( 22.5949, -1.48651 )
 
 [node name="hub_player" parent="characters" instance=ExtResource( 2 )]
-position = Vector2( 27.2422, 103.405 )
+position = Vector2( 27.2422, 105.487 )
+speed = 50
 
 [node name="interactables" type="Node2D" parent="."]
 z_index = -1
-
-[node name="bed" parent="interactables" instance=ExtResource( 3 )]
-position = Vector2( 31, 106 )
 
 [node name="action_figure" parent="interactables" instance=ExtResource( 4 )]
 position = Vector2( 138, 97 )
@@ -282,3 +302,28 @@ position = Vector2( 184, 96 )
 position = Vector2( 107, 96 )
 z_index = -1
 texture = ExtResource( 9 )
+
+[node name="bed" type="Sprite" parent="."]
+position = Vector2( 32, 104 )
+z_index = -1
+texture = ExtResource( 3 )
+
+[node name="tutorial" type="Label" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 100.0
+margin_top = 131.0
+margin_right = 345.0
+margin_bottom = 145.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 11 )
+custom_colors/font_color = Color( 0.392157, 0.392157, 0.392157, 1 )
+text = "Move around using A and D keys"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="anim" type="AnimationPlayer" parent="."]
+anims/fade = SubResource( 7 )
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

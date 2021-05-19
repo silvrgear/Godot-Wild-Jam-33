@@ -24,17 +24,31 @@ func _ready():
 	pass
 
 func _input(event):
-	var skill_01_prog = player.get_node("hud/skill_box/skill_01/progress")
+	var skill_01_prog = player.get_node("hud/skill_box/skill_01/spr/progress")
+	var skill_02_prog = player.get_node("hud/skill_box/skill_02/spr/progress")
 	
 	if at_end == false:
+		#cure skill
 		if event.is_action_pressed("q") and skills["cure"] == true:
 			if skill_01_prog.value == 0 and curr_mana >= 20:
 				curr_mana -= 20
 				$mana_canister/mana_progress.value = curr_mana
 				
 				player.heal(20)
+				player.get_node("hud/skill_box/skill_01/anim").play("enlarge")
 				skill_01_prog.value = 100
 				skill_cd(skill_01_prog, 4.0)
+		
+		#antidote skill
+		if event.is_action_pressed("w") and skills["antidote"] == true:
+			if skill_02_prog.value == 0 and curr_mana >= 20:
+				curr_mana -= 20
+				$mana_canister/mana_progress.value = curr_mana
+				
+				player.remove_poison()
+				player.get_node("hud/skill_box/skill_02/anim").play("enlarge")
+				skill_02_prog.value = 100
+				skill_cd(skill_02_prog, 8.0)
 	pass
 
 func skill_cd(obj, time):
@@ -43,6 +57,12 @@ func skill_cd(obj, time):
 	tw.interpolate_property(obj, "value", 100, 0, time, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	tw.start()
 	pass
+
+
+func _on_supp_anim_animation_finished(anim_name):
+	if anim_name == "heal":
+		get_parent().get_node("supp_anim").play("move")
+	pass # Replace with function body.
 
 
 

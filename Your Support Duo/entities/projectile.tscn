@@ -1,10 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/enemies/projectile.gd" type="Script" id=1]
 [ext_resource path="res://sprites/enemies/slime_projectile.png" type="Texture" id=2]
+[ext_resource path="res://sounds/slime_hit.wav" type="AudioStream" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 5.0
+
+[sub_resource type="StreamTexture" id=3]
+load_path = "res://.import/effects.png-b9f41f42b55ad8862df2d751f09eeb4d.stex"
+
+[sub_resource type="Curve" id=4]
+max_value = 2.0
+_data = [ Vector2( 0, 1.04091 ), 0.0, -0.305682, 0, 0, Vector2( 0.996283, 1.44091 ), 0.0, 0.0, 0, 0 ]
 
 [node name="projectile" type="Area2D"]
 collision_layer = 0
@@ -18,4 +26,33 @@ shape = SubResource( 1 )
 position = Vector2( 0, 2 )
 texture = ExtResource( 2 )
 vframes = 3
+
+[node name="color" type="Node2D" parent="."]
+
+[node name="feedback" type="CPUParticles2D" parent="color"]
+position = Vector2( 3, 4 )
+emitting = false
+amount = 10
+lifetime = 0.5
+one_shot = true
+speed_scale = 1.2
+texture = SubResource( 3 )
+emission_shape = 3
+emission_points = PoolVector2Array( 0, 2, 0, -2, 0, 0 )
+emission_colors = PoolColorArray(  )
+spread = 180.0
+gravity = Vector2( -5, 0 )
+initial_velocity = 15.0
+angular_velocity = 45.0
+scale_amount_curve = SubResource( 4 )
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -16.0
+autoplay = true
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 [connection signal="body_entered" from="." to="." method="_on_projectile_body_entered"]
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

@@ -9,4 +9,4 @@ func interact():
 	print("restore mana....")
 
 func _process(delta):
-	$key.visible = player_is_near
+	$button.visible = player_is_near

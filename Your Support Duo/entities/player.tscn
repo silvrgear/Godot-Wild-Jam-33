@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://sprites/units/healer.png" type="Texture" id=1]
 [ext_resource path="res://sprites/units/hero_weapon.png" type="Texture" id=2]
@@ -11,13 +11,19 @@
 [ext_resource path="res://scripts/support.gd" type="Script" id=9]
 [ext_resource path="res://sprites/skill_01_icon.png" type="Texture" id=10]
 [ext_resource path="res://sprites/skill_progress.png" type="Texture" id=11]
-[ext_resource path="res://sprites/skill_03_icon.png" type="Texture" id=12]
+[ext_resource path="res://fonts/FutilePro.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://sprites/skill_02_icon.png" type="Texture" id=13]
-[ext_resource path="res://sprites/skill_04.png" type="Texture" id=14]
+[ext_resource path="res://sprites/skill_04_icon.png" type="Texture" id=14]
 [ext_resource path="res://fonts/futile_font.tres" type="DynamicFont" id=15]
+[ext_resource path="res://sounds/big_sword_impact.wav" type="AudioStream" id=16]
+[ext_resource path="res://sprites/skill_03_icon.png" type="Texture" id=17]
+[ext_resource path="res://sprites/skill_effect.png" type="Texture" id=18]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 8 )
+
+[sub_resource type="Gradient" id=24]
+colors = PoolColorArray( 0.422363, 0.23174, 0.11879, 1, 0.133333, 0.054902, 0.0117647, 0 )
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.72549, 0, 0, 1 )
@@ -34,6 +40,86 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 0.101961, 0.109804, 0.172549, 1 )
+
+[sub_resource type="Animation" id=23]
+resource_name = "antidote"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 26 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("antidote_vfx:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, false ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "heal"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 26 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("heal_vfx:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, false ]
+}
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 4, 10 )
@@ -113,6 +199,42 @@ tracks/5/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("big_sword:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.4, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("hero:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("smash_particles:emitting")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=7]
 resource_name = "dance"
@@ -129,8 +251,83 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 24, 0 ), Vector2( 24, -10 ), Vector2( 24, 0 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("hero:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("hero:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=8]
+resource_name = "dead"
+tracks/0/type = "value"
+tracks/0/path = NodePath("hero:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 24, 0 ), Vector2( 17, -2 ), Vector2( 11, 4 ), Vector2( 7, 4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("hero:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -15.0, -89.9999 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("hero/weap:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 10.6945, -1.27552 ), Vector2( 2.00004, 16 ), Vector2( 2.00004, 20 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("hero/weap:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 59.9999, 285.0 ]
+}
+
+[sub_resource type="Animation" id=9]
 loop = true
 step = 0.25
 tracks/0/type = "value"
@@ -193,9 +390,20 @@ tracks/4/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("hero:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
 
-[sub_resource type="Animation" id=9]
-resource_name = "poison"
+[sub_resource type="Animation" id=10]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("hero:self_modulate")
@@ -210,7 +418,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.141176, 0.807843, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=12]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("hero:self_modulate")
@@ -225,8 +433,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.72549, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0.72549, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0.72549, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=11]
-resource_name = "dance"
+[sub_resource type="Animation" id=13]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("support:position")
@@ -253,7 +460,47 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=14]
+resource_name = "heal"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("support/weap:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, 2 ), Vector2( 8, -5 ), Vector2( 8, -5 ), Vector2( 8, 2 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("support/weap:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 60.0001, 15.0, 15.0, 60.0001 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("support/weap:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.25, 1.25 ), Vector2( 1.25, 1.25 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=15]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("support:position")
@@ -280,8 +527,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1.1, 0.9 ), Vector2( 1, 1 ), Vector2( 1.1, 0.9 ) ]
 }
 
-[sub_resource type="Animation" id=13]
-resource_name = "chat"
+[sub_resource type="Animation" id=16]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("chatbox:rect_position")
@@ -308,6 +554,71 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="DynamicFont" id=17]
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 12 )
+
+[sub_resource type="Animation" id=18]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("spr:rect_scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.25, 1.25 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("spr:rect_scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.25, 1.25 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("spr:rect_scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.25, 1.25 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=21]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("spr:rect_scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.25, 1.25 ), Vector2( 1, 1 ) ]
+}
+
 [node name="player" type="KinematicBody2D"]
 collision_mask = 0
 script = ExtResource( 5 )
@@ -319,30 +630,51 @@ shape = SubResource( 1 )
 [node name="hero" type="Sprite" parent="."]
 position = Vector2( 24, 0 )
 texture = ExtResource( 4 )
-hframes = 5
 vframes = 3
-frame = 10
+hframes = 5
 
 [node name="weap" type="Sprite" parent="hero"]
-position = Vector2( 4, -4 )
-rotation = -0.261799
+position = Vector2( 6, -4 )
 z_index = -1
 texture = ExtResource( 2 )
-hframes = 3
 vframes = 3
+hframes = 3
 
 [node name="poison_timer" type="Timer" parent="hero"]
 wait_time = 1.5
 
+[node name="smash_particles" type="CPUParticles2D" parent="."]
+position = Vector2( 43, 8 )
+emitting = false
+amount = 30
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.8
+emission_shape = 3
+emission_points = PoolVector2Array( -5, 0, 0, 0, 5, 0 )
+emission_colors = PoolColorArray(  )
+direction = Vector2( 0, -1 )
+spread = 50.0
+gravity = Vector2( 0, 98 )
+initial_velocity = 20.0
+angular_velocity = 90.0
+angular_velocity_random = 1.0
+linear_accel = -30.0
+linear_accel_random = 1.0
+scale_amount = 2.0
+scale_amount_random = 1.0
+color_ramp = SubResource( 24 )
+
 [node name="chatbox" type="Label" parent="."]
+self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -56.0
-margin_top = -70.0
+margin_top = -50.0
 margin_right = 104.0
-margin_bottom = -11.9999
+margin_bottom = 8.0001
 rect_scale = Vector2( 0.5, 0.5 )
 rect_pivot_offset = Vector2( 80, 24 )
 custom_fonts/font = ExtResource( 15 )
@@ -370,6 +702,26 @@ percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="skills_effect" type="Node2D" parent="."]
+visible = false
+position = Vector2( 0, 26 )
+z_index = -5
+
+[node name="heal_vfx" type="Sprite" parent="skills_effect"]
+self_modulate = Color( 0.141176, 0.807843, 0, 0.470588 )
+position = Vector2( 24, -8 )
+texture = ExtResource( 18 )
+
+[node name="antidote_vfx" type="Sprite" parent="skills_effect"]
+visible = false
+self_modulate = Color( 0.0627451, 0.164706, 1, 0.470588 )
+position = Vector2( 24, -8 )
+texture = ExtResource( 18 )
+
+[node name="skill_anim" type="AnimationPlayer" parent="skills_effect"]
+anims/antidote = SubResource( 23 )
+anims/heal = SubResource( 22 )
 
 [node name="support" type="Sprite" parent="."]
 position = Vector2( -16, 0 )
@@ -405,6 +757,7 @@ z_index = -1
 texture = ExtResource( 3 )
 
 [node name="enemy_area" type="Area2D" parent="."]
+visible = false
 position = Vector2( 38, -2 )
 collision_layer = 0
 collision_mask = 2
@@ -415,6 +768,7 @@ position = Vector2( -2, 0 )
 shape = SubResource( 4 )
 
 [node name="hitbox" type="Area2D" parent="."]
+visible = false
 position = Vector2( 42, -2 )
 monitoring = false
 monitorable = false
@@ -439,20 +793,27 @@ editor_draw_screen = false
 [node name="hero_anim" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 6 )
 anims/dance = SubResource( 7 )
-anims/move = SubResource( 8 )
+anims/dead = SubResource( 8 )
+anims/move = SubResource( 9 )
 
 [node name="effects_anim" type="AnimationPlayer" parent="."]
-anims/poison = SubResource( 9 )
+anims/poison = SubResource( 10 )
 
 [node name="hurt_anim" type="AnimationPlayer" parent="."]
-anims/hurt_blink = SubResource( 10 )
+anims/hurt_blink = SubResource( 12 )
 
 [node name="supp_anim" type="AnimationPlayer" parent="."]
-anims/dance = SubResource( 11 )
-anims/move = SubResource( 12 )
+anims/dance = SubResource( 13 )
+anims/heal = SubResource( 14 )
+anims/move = SubResource( 15 )
 
 [node name="chat_anim" type="AnimationPlayer" parent="."]
-anims/chat = SubResource( 13 )
+anims/chat = SubResource( 16 )
+
+[node name="big_sword" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
+volume_db = -5.0
+pitch_scale = 0.9
 
 [node name="hud" type="CanvasLayer" parent="."]
 
@@ -468,16 +829,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="skill_01" type="TextureRect" parent="hud/skill_box"]
+[node name="skill_01" type="Control" parent="hud/skill_box"]
 visible = false
 margin_right = 16.0
 margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+
+[node name="spr" type="TextureRect" parent="hud/skill_box/skill_01"]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 8, 8 )
 texture = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="progress" type="TextureProgress" parent="hud/skill_box/skill_01"]
+[node name="progress" type="TextureProgress" parent="hud/skill_box/skill_01/spr"]
 margin_right = 16.0
 margin_bottom = 16.0
 texture_progress = ExtResource( 11 )
@@ -486,18 +853,40 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="tween" type="Tween" parent="hud/skill_box/skill_01/progress"]
+[node name="tween" type="Tween" parent="hud/skill_box/skill_01/spr/progress"]
 
-[node name="skill_02" type="TextureRect" parent="hud/skill_box"]
+[node name="label" type="Label" parent="hud/skill_box/skill_01"]
+margin_left = -1.0
+margin_top = -3.0
+margin_right = 9.0
+margin_bottom = 11.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = SubResource( 17 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Q"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="anim" type="AnimationPlayer" parent="hud/skill_box/skill_01"]
+anims/enlarge = SubResource( 18 )
+
+[node name="skill_02" type="Control" parent="hud/skill_box"]
 visible = false
 margin_right = 16.0
 margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+
+[node name="spr" type="TextureRect" parent="hud/skill_box/skill_02"]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 8, 8 )
 texture = ExtResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="progress" type="TextureProgress" parent="hud/skill_box/skill_02"]
+[node name="progress" type="TextureProgress" parent="hud/skill_box/skill_02/spr"]
 margin_right = 16.0
 margin_bottom = 16.0
 texture_progress = ExtResource( 11 )
@@ -506,18 +895,40 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="tween" type="Tween" parent="hud/skill_box/skill_02/progress"]
+[node name="tween" type="Tween" parent="hud/skill_box/skill_02/spr/progress"]
 
-[node name="skill_03" type="TextureRect" parent="hud/skill_box"]
-visible = false
-margin_right = 16.0
-margin_bottom = 20.0
-texture = ExtResource( 12 )
+[node name="label" type="Label" parent="hud/skill_box/skill_02"]
+margin_left = -1.0
+margin_top = -3.0
+margin_right = 9.0
+margin_bottom = 11.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = SubResource( 17 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "W"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="progress" type="TextureProgress" parent="hud/skill_box/skill_03"]
+[node name="anim" type="AnimationPlayer" parent="hud/skill_box/skill_02"]
+anims/enlarge = SubResource( 19 )
+
+[node name="skill_03" type="Control" parent="hud/skill_box"]
+visible = false
+margin_right = 16.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+
+[node name="spr" type="TextureRect" parent="hud/skill_box/skill_03"]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 8, 8 )
+texture = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progress" type="TextureProgress" parent="hud/skill_box/skill_03/spr"]
 margin_right = 16.0
 margin_bottom = 16.0
 texture_progress = ExtResource( 11 )
@@ -526,18 +937,40 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="tween" type="Tween" parent="hud/skill_box/skill_03/progress"]
+[node name="tween" type="Tween" parent="hud/skill_box/skill_03/spr/progress"]
 
-[node name="skill_04" type="TextureRect" parent="hud/skill_box"]
+[node name="label" type="Label" parent="hud/skill_box/skill_03"]
+margin_left = -1.0
+margin_top = -3.0
+margin_right = 9.0
+margin_bottom = 11.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = SubResource( 17 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "E"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="anim" type="AnimationPlayer" parent="hud/skill_box/skill_03"]
+anims/enlarge = SubResource( 20 )
+
+[node name="skill_04" type="Control" parent="hud/skill_box"]
 visible = false
 margin_right = 16.0
 margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+
+[node name="spr" type="TextureRect" parent="hud/skill_box/skill_04"]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 8, 8 )
 texture = ExtResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="progress" type="TextureProgress" parent="hud/skill_box/skill_04"]
+[node name="progress" type="TextureProgress" parent="hud/skill_box/skill_04/spr"]
 margin_right = 16.0
 margin_bottom = 16.0
 texture_progress = ExtResource( 11 )
@@ -546,11 +979,39 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="tween" type="Tween" parent="hud/skill_box/skill_04/progress"]
+[node name="tween" type="Tween" parent="hud/skill_box/skill_04/spr/progress"]
 
+[node name="label" type="Label" parent="hud/skill_box/skill_04"]
+margin_left = -1.0
+margin_top = -3.0
+margin_right = 9.0
+margin_bottom = 11.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = SubResource( 17 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "R"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="anim" type="AnimationPlayer" parent="hud/skill_box/skill_04"]
+anims/enlarge = SubResource( 21 )
+
+[node name="ded_lbl" type="Label" parent="hud"]
+visible = false
+margin_left = 13.0
+margin_top = 9.0
+margin_right = 305.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 15 )
+text = "The Hero is dead. Press F5 to restart"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="hero/poison_timer" to="." method="_on_poison_timer_timeout"]
+[connection signal="animation_finished" from="skills_effect/skill_anim" to="." method="_on_skill_anim_animation_finished"]
 [connection signal="body_entered" from="enemy_area" to="." method="_on_enemy_area_body_entered"]
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="animation_finished" from="hero_anim" to="." method="_on_hero_anim_animation_finished"]
 [connection signal="animation_finished" from="effects_anim" to="." method="_on_effects_anim_animation_finished"]
-[connection signal="animation_finished" from="chat_anim" to="." method="_on_anim_animation_finished"]
+[connection signal="animation_finished" from="supp_anim" to="support" method="_on_supp_anim_animation_finished"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://sprites/silver_chest.png" type="Texture" id=1]
 [ext_resource path="res://scripts/treasure_end.gd" type="Script" id=2]
 [ext_resource path="res://fonts/futile_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://sounds/button_click.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -147,4 +148,9 @@ __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""
 }
+
+[node name="btn_click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = 8.0
 [connection signal="body_entered" from="." to="." method="_on_treasure_end_body_entered"]
+[connection signal="pressed" from="gui/end/home_btn" to="." method="_on_home_btn_pressed"]

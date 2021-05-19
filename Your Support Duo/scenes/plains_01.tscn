@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://sprites/tilesets.png" type="Texture" id=1]
 [ext_resource path="res://entities/player.tscn" type="PackedScene" id=2]
@@ -10,7 +10,16 @@
 [ext_resource path="res://entities/slime_red.tscn" type="PackedScene" id=8]
 [ext_resource path="res://entities/treasure_end.tscn" type="PackedScene" id=9]
 [ext_resource path="res://sprites/bg_01.png" type="Texture" id=10]
+[ext_resource path="res://sprites/bg_03.png" type="Texture" id=11]
 [ext_resource path="res://sprites/bg_02.png" type="Texture" id=12]
+[ext_resource path="res://sprites/bg_04.png" type="Texture" id=13]
+[ext_resource path="res://entities/now_playing.tscn" type="PackedScene" id=14]
+[ext_resource path="res://sounds/mystic_journey.ogg" type="AudioStream" id=15]
+[ext_resource path="res://sprites/bg_05.png" type="Texture" id=16]
+[ext_resource path="res://sprites/mist.png" type="Texture" id=17]
+[ext_resource path="res://entities/retry_btn.tscn" type="PackedScene" id=18]
+[ext_resource path="res://sounds/button_click.wav" type="AudioStream" id=19]
+[ext_resource path="res://sounds/tutorial_pop.wav" type="AudioStream" id=20]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 4, 16, 4, 16, 16, 0, 16 )
@@ -301,20 +310,43 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 4, 16, 4 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 11/z_index = 0
+12/name = "tilesets.png 12"
+12/texture = ExtResource( 1 )
+12/tex_offset = Vector2( 0, 0 )
+12/modulate = Color( 1, 1, 1, 1 )
+12/region = Rect2( 0, 64, 16, 16 )
+12/tile_mode = 0
+12/occluder_offset = Vector2( 0, 0 )
+12/navigation_offset = Vector2( 0, 0 )
+12/shape_offset = Vector2( 0, 0 )
+12/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+12/shape_one_way = false
+12/shape_one_way_margin = 0.0
+12/shapes = [  ]
+12/z_index = 0
+13/name = "tilesets.png 13"
+13/texture = ExtResource( 1 )
+13/tex_offset = Vector2( 0, 0 )
+13/modulate = Color( 1, 1, 1, 1 )
+13/region = Rect2( 16, 64, 16, 16 )
+13/tile_mode = 0
+13/occluder_offset = Vector2( 0, 0 )
+13/navigation_offset = Vector2( 0, 0 )
+13/shape_offset = Vector2( 0, 0 )
+13/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+13/shape_one_way = false
+13/shape_one_way_margin = 0.0
+13/shapes = [  ]
+13/z_index = 0
 
 [sub_resource type="StyleBoxFlat" id=14]
-bg_color = Color( 0, 0, 0, 0.588235 )
+bg_color = Color( 0.72549, 0, 0, 0.588235 )
 
 [sub_resource type="StyleBoxFlat" id=15]
-bg_color = Color( 0.584314, 0.584314, 0.584314, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0.101961, 0.109804, 0.172549, 1 )
+bg_color = Color( 0, 0, 0, 0.588235 )
 
 [sub_resource type="StyleBoxFlat" id=16]
-bg_color = Color( 0.309804, 0.309804, 0.309804, 1 )
+bg_color = Color( 0.584314, 0.584314, 0.584314, 1 )
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -322,35 +354,6 @@ border_width_bottom = 2
 border_color = Color( 0.101961, 0.109804, 0.172549, 1 )
 
 [sub_resource type="StyleBoxFlat" id=17]
-bg_color = Color( 1, 1, 1, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0.101961, 0.109804, 0.172549, 1 )
-
-[sub_resource type="InputEventAction" id=18]
-action = "shortcut"
-pressed = true
-
-[sub_resource type="ShortCut" id=19]
-shortcut = SubResource( 18 )
-
-[sub_resource type="StyleBoxFlat" id=20]
-bg_color = Color( 0, 0, 0, 0.588235 )
-
-[sub_resource type="DynamicFont" id=21]
-font_data = ExtResource( 5 )
-
-[sub_resource type="StyleBoxFlat" id=22]
-bg_color = Color( 0.584314, 0.584314, 0.584314, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0.101961, 0.109804, 0.172549, 1 )
-
-[sub_resource type="StyleBoxFlat" id=23]
 bg_color = Color( 0.309804, 0.309804, 0.309804, 1 )
 border_width_left = 2
 border_width_top = 2
@@ -358,7 +361,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0.101961, 0.109804, 0.172549, 1 )
 
-[sub_resource type="StyleBoxFlat" id=24]
+[sub_resource type="StyleBoxFlat" id=18]
 bg_color = Color( 1, 1, 1, 1 )
 border_width_left = 2
 border_width_top = 2
@@ -366,35 +369,108 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0.101961, 0.109804, 0.172549, 1 )
 
-[sub_resource type="InputEventAction" id=25]
+[sub_resource type="InputEventAction" id=19]
 action = "shortcut"
 pressed = true
 
-[sub_resource type="ShortCut" id=26]
-shortcut = SubResource( 25 )
+[sub_resource type="ShortCut" id=20]
+shortcut = SubResource( 19 )
+
+[sub_resource type="StyleBoxFlat" id=21]
+bg_color = Color( 0, 0, 0, 0.588235 )
+
+[sub_resource type="DynamicFont" id=22]
+font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=23]
+bg_color = Color( 0.584314, 0.584314, 0.584314, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.101961, 0.109804, 0.172549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=24]
+bg_color = Color( 0.309804, 0.309804, 0.309804, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.101961, 0.109804, 0.172549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=25]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.101961, 0.109804, 0.172549, 1 )
+
+[sub_resource type="InputEventAction" id=26]
+action = "shortcut"
+pressed = true
+
+[sub_resource type="ShortCut" id=27]
+shortcut = SubResource( 26 )
 
 [node name="plains_01" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="parallax_background" type="ParallaxBackground" parent="."]
 
-[node name="parallax_layer" type="ParallaxLayer" parent="parallax_background"]
+[node name="horizon" type="Sprite" parent="parallax_background"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 16 )
+centered = false
+
+[node name="parallax_layer4" type="ParallaxLayer" parent="parallax_background"]
 motion_scale = Vector2( 0.1, 1 )
 motion_mirroring = Vector2( 320, 0 )
 
-[node name="sprite" type="Sprite" parent="parallax_background/parallax_layer"]
+[node name="sprite" type="Sprite" parent="parallax_background/parallax_layer4"]
 scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
+centered = false
+
+[node name="parallax_layer3" type="ParallaxLayer" parent="parallax_background"]
+motion_scale = Vector2( 0.2, 1 )
+motion_mirroring = Vector2( 320, 0 )
+
+[node name="sprite" type="Sprite" parent="parallax_background/parallax_layer3"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 11 )
 centered = false
 
 [node name="parallax_layer2" type="ParallaxLayer" parent="parallax_background"]
-motion_scale = Vector2( 0.3, 1 )
+motion_scale = Vector2( 0.4, 1 )
 motion_mirroring = Vector2( 320, 0 )
 
 [node name="sprite" type="Sprite" parent="parallax_background/parallax_layer2"]
 scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="parallax_layer" type="ParallaxLayer" parent="parallax_background"]
+motion_scale = Vector2( 0.6, 1 )
+motion_mirroring = Vector2( 320, 0 )
+
+[node name="sprite" type="Sprite" parent="parallax_background/parallax_layer"]
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 10 )
 centered = false
+
+[node name="mist" type="Sprite" parent="parallax_background"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 17 )
+centered = false
+
+[node name="bg_music" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 15 )
+volume_db = -5.0
+autoplay = true
+
+[node name="now_playing" parent="bg_music" instance=ExtResource( 14 )]
 
 [node name="tile_map" type="TileMap" parent="."]
 z_index = -2
@@ -403,7 +479,7 @@ cell_size = Vector2( 16, 16 )
 collision_layer = 4
 collision_mask = 0
 format = 1
-tile_data = PoolIntArray( 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 589844, 0, 0, 589845, 0, 0, 589846, 0, 0, 589847, 0, 0, 589848, 0, 0, 589849, 0, 0, 589850, 0, 0, 589851, 0, 0, 589852, 0, 0, 589853, 0, 0, 589854, 0, 0, 589855, 0, 0, 589856, 0, 0, 589857, 0, 0, 589858, 0, 0, 589859, 0, 0, 589860, 0, 0, 589861, 0, 0, 589862, 0, 0, 589863, 0, 0, 589864, 0, 0, 589865, 0, 0, 589866, 0, 0, 589867, 0, 0, 589868, 0, 0, 589869, 0, 0, 589870, 0, 0, 589871, 0, 0, 589872, 0, 0, 589873, 0, 0, 589874, 0, 0, 589875, 0, 0, 589876, 0, 0, 589877, 0, 0, 589878, 0, 0, 589879, 0, 0, 589880, 0, 0, 589881, 0, 0, 589882, 0, 0, 589883, 0, 0, 589884, 0, 0, 589885, 0, 0, 589886, 0, 0, 589887, 0, 0, 589888, 0, 0, 589889, 0, 0, 589890, 0, 0, 589891, 0, 0, 589892, 0, 0, 589893, 0, 0, 589894, 0, 0, 589895, 0, 0, 589896, 0, 0, 589897, 0, 0, 589898, 0, 0, 589899, 0, 0, 589900, 0, 0, 589901, 0, 0, 589902, 0, 0, 589903, 0, 0, 589904, 0, 0, 589905, 0, 0, 589906, 0, 0, 589907, 0, 0, 589908, 0, 0, 589909, 0, 0, 589910, 0, 0, 589911, 0, 0, 589912, 0, 0, 589913, 0, 0, 589914, 0, 0 )
+tile_data = PoolIntArray( 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 589844, 0, 0, 589845, 0, 0, 589846, 0, 0, 589847, 0, 0, 589848, 0, 0, 589849, 0, 0, 589850, 0, 0, 589851, 0, 0, 589852, 0, 0, 589853, 0, 0, 589854, 0, 0, 589855, 0, 0, 589856, 0, 0, 589857, 0, 0, 589858, 0, 0, 589859, 0, 0, 589860, 0, 0, 589861, 0, 0, 589862, 0, 0, 589863, 0, 0, 589864, 0, 0, 589865, 0, 0, 589866, 0, 0, 589867, 0, 0, 589868, 0, 0, 589869, 0, 0, 589870, 0, 0, 589871, 0, 0, 589872, 0, 0, 589873, 0, 0, 589874, 0, 0, 589875, 0, 0, 589876, 0, 0, 589877, 0, 0, 589878, 0, 0, 589879, 0, 0, 589880, 0, 0, 589881, 0, 0, 589882, 0, 0, 589883, 0, 0, 589884, 0, 0, 589885, 0, 0, 589886, 0, 0, 589887, 0, 0, 589888, 0, 0, 589889, 0, 0, 589890, 0, 0, 589891, 0, 0, 589892, 0, 0, 589893, 0, 0, 589894, 0, 0, 589895, 0, 0, 589896, 0, 0, 589897, 0, 0, 589898, 0, 0, 589899, 0, 0, 589900, 0, 0, 589901, 0, 0, 589902, 0, 0, 589903, 0, 0, 589904, 0, 0, 589905, 0, 0, 589906, 0, 0, 589907, 0, 0, 589908, 0, 0, 589909, 0, 0, 589910, 0, 0, 589911, 0, 0, 589912, 0, 0, 589913, 0, 0, 589914, 0, 0, 655360, 12, 0, 655361, 12, 0, 655362, 12, 0, 655363, 12, 0, 655364, 12, 0, 655365, 12, 0, 655366, 12, 0, 655367, 12, 0, 655368, 12, 0, 655369, 12, 0, 655370, 12, 0, 655371, 12, 0, 655372, 12, 0, 655373, 12, 0, 655374, 12, 0, 655375, 12, 0, 655376, 12, 0, 655377, 12, 0, 655378, 12, 0, 655379, 12, 0, 655380, 12, 0, 655381, 12, 0, 655382, 12, 0, 655383, 12, 0, 655384, 12, 0, 655385, 12, 0, 655386, 12, 0, 655387, 12, 0, 655388, 12, 0, 655389, 12, 0, 655390, 12, 0, 655391, 12, 0, 655392, 12, 0, 655393, 12, 0, 655394, 12, 0, 655395, 12, 0, 655396, 12, 0, 655397, 12, 0, 655398, 12, 0, 655399, 12, 0, 655400, 12, 0, 655401, 12, 0, 655402, 12, 0, 655403, 12, 0, 655404, 12, 0, 655405, 12, 0, 655406, 12, 0, 655407, 12, 0, 655408, 12, 0, 655409, 12, 0, 655410, 12, 0, 655411, 12, 0, 655412, 12, 0, 655413, 12, 0, 655414, 12, 0, 655415, 12, 0, 655416, 12, 0, 655417, 12, 0, 655418, 12, 0, 655419, 12, 0, 655420, 12, 0, 655421, 12, 0, 655422, 12, 0, 655423, 12, 0, 655424, 12, 0, 655425, 12, 0, 655426, 12, 0, 655427, 12, 0, 655428, 12, 0, 655429, 12, 0, 655430, 12, 0, 655431, 12, 0, 655432, 12, 0, 655433, 12, 0, 655434, 12, 0, 655435, 12, 0, 655436, 12, 0, 655437, 12, 0, 655438, 12, 0, 655439, 12, 0, 655440, 12, 0, 655441, 12, 0, 655442, 12, 0, 655443, 12, 0, 655444, 12, 0, 655445, 12, 0, 655446, 12, 0, 655447, 12, 0, 655448, 12, 0, 655449, 12, 0, 655450, 12, 0, 720896, 12, 0, 720897, 12, 0, 720898, 12, 0, 720899, 12, 0, 720900, 12, 0, 720901, 12, 0, 720902, 12, 0, 720903, 12, 0, 720904, 12, 0, 720905, 12, 0, 720906, 12, 0, 720907, 12, 0, 720908, 12, 0, 720909, 12, 0, 720910, 12, 0, 720911, 12, 0, 720912, 12, 0, 720913, 12, 0, 720914, 12, 0, 720915, 12, 0, 720916, 12, 0, 720917, 12, 0, 720918, 12, 0, 720919, 12, 0, 720920, 12, 0, 720921, 12, 0, 720922, 12, 0, 720923, 12, 0, 720924, 12, 0, 720925, 12, 0, 720926, 12, 0, 720927, 12, 0, 720928, 12, 0, 720929, 12, 0, 720930, 12, 0, 720931, 12, 0, 720932, 12, 0, 720933, 12, 0, 720934, 12, 0, 720935, 12, 0, 720936, 12, 0, 720937, 12, 0, 720938, 12, 0, 720939, 12, 0, 720940, 12, 0, 720941, 12, 0, 720942, 12, 0, 720943, 12, 0, 720944, 12, 0, 720945, 12, 0, 720946, 12, 0, 720947, 12, 0, 720948, 12, 0, 720949, 12, 0, 720950, 12, 0, 720951, 12, 0, 720952, 12, 0, 720953, 12, 0, 720954, 12, 0, 720955, 12, 0, 720956, 12, 0, 720957, 12, 0, 720958, 12, 0, 720959, 12, 0, 720960, 12, 0, 720961, 12, 0, 720962, 12, 0, 720963, 12, 0, 720964, 12, 0, 720965, 12, 0, 720966, 12, 0, 720967, 12, 0, 720968, 12, 0, 720969, 12, 0, 720970, 12, 0, 720971, 12, 0, 720972, 12, 0, 720973, 12, 0, 720974, 12, 0, 720975, 12, 0, 720976, 12, 0, 720977, 12, 0, 720978, 12, 0, 720979, 12, 0, 720980, 12, 0, 720981, 12, 0, 720982, 12, 0, 720983, 12, 0, 720984, 12, 0, 720985, 12, 0, 720986, 12, 0 )
 
 [node name="characters" type="Node2D" parent="."]
 
@@ -441,17 +517,30 @@ position = Vector2( 1001, 140 )
 position = Vector2( 1158, 140 )
 
 [node name="timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 1.5
 one_shot = true
 
 [node name="gui" type="CanvasLayer" parent="."]
+
+[node name="blood_stained" type="Panel" parent="gui"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="retry_btn" parent="gui" instance=ExtResource( 18 )]
+pause_mode = 2
+visible = false
 
 [node name="skill_tutorial" type="Panel" parent="gui"]
 pause_mode = 2
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 14 )
+custom_styles/panel = SubResource( 15 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -486,7 +575,7 @@ rect_pivot_offset = Vector2( 130, 72 )
 custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0.705882 )
-text = "Skill Unlocked: Cure
+text = "Skill Unlocked: Cure (Q)
 Effect: Heal the Hero for 20 HP
 Mana Cost: 20 Mana"
 align = 1
@@ -505,15 +594,15 @@ margin_right = 28.0
 margin_bottom = 12.0
 rect_scale = Vector2( 0.5, 0.5 )
 rect_pivot_offset = Vector2( 28, 120 )
-custom_styles/hover = SubResource( 15 )
-custom_styles/pressed = SubResource( 16 )
-custom_styles/normal = SubResource( 17 )
+custom_styles/hover = SubResource( 16 )
+custom_styles/pressed = SubResource( 17 )
+custom_styles/normal = SubResource( 18 )
 custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0.101961, 0.109804, 0.172549, 1 )
 custom_colors/font_color_hover = Color( 0.101961, 0.109804, 0.172549, 1 )
 custom_colors/font_color_pressed = Color( 0.101961, 0.109804, 0.172549, 1 )
 shortcut_in_tooltip = false
-shortcut = SubResource( 19 )
+shortcut = SubResource( 20 )
 text = "OK!"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -540,7 +629,7 @@ pause_mode = 2
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 20 )
+custom_styles/panel = SubResource( 21 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -556,7 +645,7 @@ margin_right = 191.0
 margin_bottom = 26.0
 rect_scale = Vector2( 0.5, 0.5 )
 rect_pivot_offset = Vector2( 190, 26 )
-custom_fonts/font = SubResource( 21 )
+custom_fonts/font = SubResource( 22 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0.705882 )
 text = "The Hero and You (The Support) automatically moves to the right during an adventure"
@@ -577,15 +666,15 @@ margin_right = 28.0
 margin_bottom = 12.0
 rect_scale = Vector2( 0.5, 0.5 )
 rect_pivot_offset = Vector2( 28, 120 )
-custom_styles/hover = SubResource( 22 )
-custom_styles/pressed = SubResource( 23 )
-custom_styles/normal = SubResource( 24 )
+custom_styles/hover = SubResource( 23 )
+custom_styles/pressed = SubResource( 24 )
+custom_styles/normal = SubResource( 25 )
 custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0.101961, 0.109804, 0.172549, 1 )
 custom_colors/font_color_hover = Color( 0.101961, 0.109804, 0.172549, 1 )
 custom_colors/font_color_pressed = Color( 0.101961, 0.109804, 0.172549, 1 )
 shortcut_in_tooltip = false
-shortcut = SubResource( 26 )
+shortcut = SubResource( 27 )
 text = "OK!"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -607,6 +696,17 @@ custom_colors/font_color = Color( 0.545098, 0.545098, 0.545098, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0.392157 )
 text = "or click space to continue"
 
+[node name="btn_click" type="AudioStreamPlayer" parent="gui"]
+pause_mode = 2
+stream = ExtResource( 19 )
+volume_db = 8.0
+
+[node name="tut_pop" type="AudioStreamPlayer" parent="gui"]
+pause_mode = 2
+stream = ExtResource( 20 )
+volume_db = -4.0
+pitch_scale = 0.9
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="gui/retry_btn" to="." method="_on_retry_btn_pressed"]
 [connection signal="pressed" from="gui/skill_tutorial/skill_btn" to="." method="_on_skill_btn_pressed"]
 [connection signal="pressed" from="gui/automatic_move_tutorial/move_btn" to="." method="_on_move_btn_pressed"]

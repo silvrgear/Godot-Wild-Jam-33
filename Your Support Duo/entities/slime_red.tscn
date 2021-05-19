@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/enemies/slime_red.gd" type="Script" id=1]
 [ext_resource path="res://sprites/enemies/slime.png" type="Texture" id=2]
+[ext_resource path="res://sounds/slime_shot.wav" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -52,11 +53,24 @@ tracks/1/keys = {
 [sub_resource type="Animation" id=4]
 resource_name = "shoot"
 length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("shot:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [node name="slime_red" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 2147483648
 script = ExtResource( 1 )
+damage = 20
 max_health = 10
 shoot_delay = 2.0
 
@@ -65,7 +79,8 @@ position = Vector2( 0, -2 )
 shape = SubResource( 1 )
 
 [node name="sprite" type="Sprite" parent="."]
-position = Vector2( 1.19209e-07, 1.43051e-06 )
+position = Vector2( 1.09171e-07, 0.0589475 )
+scale = Vector2( 1.00842, 0.991579 )
 texture = ExtResource( 2 )
 vframes = 3
 
@@ -75,10 +90,16 @@ cast_to = Vector2( -100, 0 )
 collision_mask = 2147483649
 
 [node name="timer" type="Timer" parent="."]
+wait_time = 2.0
 
 [node name="anim" type="AnimationPlayer" parent="."]
 anims/hurt = SubResource( 2 )
 anims/idle = SubResource( 3 )
 anims/shoot = SubResource( 4 )
+
+[node name="shot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -12.0
+pitch_scale = 0.9
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

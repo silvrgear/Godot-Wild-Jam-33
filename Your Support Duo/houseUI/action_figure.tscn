@@ -1,12 +1,79 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://sprites/house/action_figure.png" type="Texture" id=1]
 [ext_resource path="res://scripts/action_figure.gd" type="Script" id=2]
-[ext_resource path="res://fonts/futile_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://fonts/FutilePro.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://houseUI/houseUIkey_float.tres" type="Animation" id=4]
+[ext_resource path="res://sprites/button.png" type="Texture" id=5]
+[ext_resource path="res://fonts/futile_font.tres" type="DynamicFont" id=6]
+[ext_resource path="res://sounds/action_fig_shing.wav" type="AudioStream" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 5 )
+
+[sub_resource type="DynamicFont" id=2]
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "shing"
+tracks/0/type = "value"
+tracks/0/path = NodePath("shing_sfx:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0 ]
+}
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0, 0, 0.313726 )
+
+[sub_resource type="Animation" id=5]
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 4, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "release_player"
+} ]
+}
 
 [node name="action_figure" type="StaticBody2D"]
 collision_layer = 4
@@ -15,25 +82,91 @@ script = ExtResource( 2 )
 
 [node name="sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+hframes = 2
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( 0, 3 )
 shape = SubResource( 1 )
 
-[node name="key" type="Label" parent="."]
-visible = false
-margin_left = -1.0
-margin_top = -13.0
-margin_right = 39.0
-margin_bottom = 1.0
+[node name="button" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_left = -7.0
+margin_top = -30.0
+margin_right = 9.0
+margin_bottom = -14.0
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="key" type="Label" parent="button"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 24.0
+margin_bottom = 16.0
 rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "F"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="anim" type="AnimationPlayer" parent="."]
+autoplay = "key_float"
+anims/key_float = ExtResource( 4 )
+
+[node name="fr_anim" type="AnimationPlayer" parent="."]
+anims/shing = SubResource( 3 )
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="shing_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -2.0
+
+[node name="gui" type="CanvasLayer" parent="."]
+
+[node name="control" type="Control" parent="gui"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="animation_player" type="AnimationPlayer" parent="."]
-autoplay = "houseUIkey_float"
-anims/houseUIkey_float = ExtResource( 4 )
+[node name="panel" type="Panel" parent="gui/control"]
+anchor_right = 1.0
+margin_bottom = 36.0
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="gui/control/panel"]
+anchor_right = 1.0
+margin_right = 320.0
+margin_bottom = 72.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 6 )
+text = "Developer / Lead Programmer / Pixel Artist: Amir Ambojia
+Programmer: Khaizter Topacio
+Background Artist: Matthew Valenzona"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="anim" type="AnimationPlayer" parent="gui/control"]
+anims/fade = SubResource( 5 )
+[connection signal="animation_finished" from="gui/control/anim" to="." method="_on_anim_animation_finished"]

@@ -1,18 +1,28 @@
 extends KinematicBody2D
 
-export var speed = 115
+export var speed = 40
 var move_dir
 var velocity = Vector2.ZERO
 
 onready var interact = $interact
 var interactable_object
 
+var can_move = true
+
 func _ready():
 	pass
 
 func _physics_process(delta):
 	
-	move_dir = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
+	if can_move == true:
+		move_dir = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
+	else:
+		move_dir = 0
+	
+	if move_dir == 0:
+		$anim.play("idle")
+	else:
+		$anim.play("move")
 	
 	velocity.x = move_dir * speed
 	velocity = move_and_slide(velocity)
