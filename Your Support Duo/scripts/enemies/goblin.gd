@@ -5,7 +5,7 @@ var max_health = 30
 
 var is_attacking = false
 
-var damage = 20
+var damage = 30
 var atk_delay = 1.0
 
 func _ready():

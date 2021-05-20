@@ -157,6 +157,8 @@ func apply_poison():
 	curr_health -= 5
 	$hero_hp_bar.value = curr_health
 	
+	health_changes(curr_health, "poison")
+	
 	if curr_health <= 0:
 		curr_health = 0
 		

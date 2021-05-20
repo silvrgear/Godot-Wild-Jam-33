@@ -280,7 +280,7 @@ tile_data = PoolIntArray( -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0
 position = Vector2( 22.5949, -1.48651 )
 
 [node name="hub_player" parent="characters" instance=ExtResource( 2 )]
-position = Vector2( 27.2422, 105.487 )
+position = Vector2( 140.405, 105.487 )
 speed = 50
 
 [node name="interactables" type="Node2D" parent="."]
