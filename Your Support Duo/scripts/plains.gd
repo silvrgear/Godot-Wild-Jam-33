@@ -3,8 +3,6 @@ extends Node2D
 var skill_unlocked = false
 
 func _ready():
-	$timer.start()
-	
 	$characters/player.get_node("follow_cam/cam").limit_right = 1320
 	$objects/treasure_end.jokes = "No reward is given to you as the hero takes it all."
 	

@@ -1,7 +1,8 @@
 extends Node2D
 
-var levels = ["plains_01", "plains_02", "forest_01", "forest_02"]
-var curr_level = -2
+var levels = ["plains_01", "plains_02", "forest_01", "forest_02", "cave_01",
+				"castle_01", "castle_02"]
+var curr_level = 5
 
 var heroes = [0,5,10] #temp
 var weapons = [0,3,6]
@@ -23,7 +24,7 @@ func _ready():
 
 func change_to_next_scene():
 	curr_level += 1
-	if curr_level == 3:
+	if curr_level == 7:
 		get_parent().get_node("label").show()
 		return
 	get_child(0).queue_free()

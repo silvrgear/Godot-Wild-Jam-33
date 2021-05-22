@@ -13,6 +13,9 @@ var movespd = 50.0
 var battling_enemy = false
 var is_dead = false
 var poisoned = false
+var next_attack_buff = false
+var is_damaged = false
+var is_invincible = false
 
 var curr_health
 var max_health = 100
@@ -26,8 +29,8 @@ func _ready():
 	$hero_anim.play("move")
 	$supp_anim.play("move")
 	
-	$hero.frame = hero_frame
-	$hero/weap.frame = weap_frame
+#	$hero.frame = hero_frame
+#	$hero/weap.frame = weap_frame
 	
 	curr_health = max_health
 	$hero_hp_bar.value = curr_health
@@ -42,8 +45,15 @@ func _ready():
 	pass
 
 func initialize_hero():
-	$hero.frame = hero_frame
-	$hero/weap.frame = weap_frame
+	if is_damaged == false:
+		$hero.frame = hero_frame
+		$hero/weap.frame = weap_frame
+	else:
+		$hero.frame = hero_frame + 4
+		$hero/weap.frame = weap_frame + 2
+		
+		curr_health = 20
+		$hero_hp_bar.value = curr_health
 
 func _physics_process(delta):
 	if is_dead == true:
@@ -55,6 +65,12 @@ func _physics_process(delta):
 			vel.x = 0
 		else:
 			vel.x = movespd
+	
+	#buff effect
+	if next_attack_buff == true:
+		$hitbox/wide_col.set_deferred("disabled", false)
+	else:
+		$hitbox/wide_col.set_deferred("disabled", true)
 	
 	move_and_slide(vel)
 	print(curr_health)
@@ -76,12 +92,13 @@ func heal(amount):
 
 func hurt(dmg_dealt):
 	if is_dead == false:
-		$hurt_anim.play("hurt_blink")
-		
-		curr_health -= dmg_dealt
-		$hero_hp_bar.value = curr_health
-		
-		health_changes(curr_health, "hurt")
+		if is_invincible == false:
+			$hurt_anim.play("hurt_blink")
+			
+			curr_health -= dmg_dealt
+			$hero_hp_bar.value = curr_health
+			
+			health_changes(curr_health, "hurt")
 		
 		if curr_health <= 0:
 			curr_health = 0
@@ -181,12 +198,31 @@ func remove_poison():
 		$hero/poison_timer.stop()
 	pass
 
+func buff():
+	$hero/weap/looong.show()
+	next_attack_buff = true
+	pass
+
+func activate_invincibility():
+	is_invincible = true
+	$hero/inv_timer.start(5.0)
+	
+	$skills_effect.show()
+	$skills_effect/skill_anim.play("invincibility")
+	
+	$hero.modulate = Color("#f7ff00")
+	pass
+
 func dance():
 	self.set_physics_process(false)
 	
 	$hero_anim.play("dance")
 	$supp_anim.play("dance")
 	pass
+
+func screenshake():
+	var ss = $follow_cam/cam/ScreenShake
+	ss.start(0.1, 12, 2, 0)
 
 func _on_hero_anim_animation_finished(anim_name):
 	if anim_name == "attack":
@@ -197,6 +233,9 @@ func _on_hero_anim_animation_finished(anim_name):
 		
 		if $enemy_area.get_overlapping_bodies().empty() == true:
 			battling_enemy = false
+		
+		$hero/weap/looong.hide()
+		next_attack_buff = false
 	
 	if anim_name == "dead":
 		get_parent().get_parent().get_tree().paused = true
@@ -211,7 +250,10 @@ func _on_enemy_area_body_entered(body):
 
 
 func _on_hitbox_body_entered(body):
-	body.hurt(10)
+	if next_attack_buff == false:
+		body.hurt(10)
+	else:
+		body.hurt(30)
 	pass # Replace with function body.
 
 
@@ -234,4 +276,11 @@ func _on_effects_anim_animation_finished(anim_name):
 func _on_skill_anim_animation_finished(anim_name):
 	if anim_name in ["heal", "antidote"]:
 		$skills_effect.hide()
+	pass # Replace with function body.
+
+
+func _on_inv_timer_timeout():
+	is_invincible = false
+	
+	$hero.modulate = Color("#ffffff")
 	pass # Replace with function body.

@@ -6,7 +6,7 @@ func _ready():
 	$characters/player.get_node("hud/skill_box/skill_01").show()
 	
 	$characters/player.get_node("follow_cam/cam").limit_right = 900
-	$objects/treasure_end.jokes = "No reward again?!"
+	$objects/treasure_end.jokes = "No reward again.."
 	
 	var np_lbl = $bg_music/now_playing/panel/label
 	np_lbl.text = "Mystic Journey by Tausdei"

@@ -1,18 +1,17 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://entities/now_playing.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sprites/backgrounds/forest_bg_03.png" type="Texture" id=3]
 [ext_resource path="res://entities/slime_blue.tscn" type="PackedScene" id=4]
 [ext_resource path="res://entities/slime_red.tscn" type="PackedScene" id=5]
 [ext_resource path="res://entities/treasure_end.tscn" type="PackedScene" id=6]
 [ext_resource path="res://entities/retry_btn.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scripts/forest_02.gd" type="Script" id=8]
-[ext_resource path="res://sprites/bg_04.png" type="Texture" id=9]
+[ext_resource path="res://sprites/backgrounds/forest_bg_01.png" type="Texture" id=9]
 [ext_resource path="res://sounds/button_click.wav" type="AudioStream" id=10]
-[ext_resource path="res://sprites/bg_02.png" type="Texture" id=11]
-[ext_resource path="res://sprites/bg_03.png" type="Texture" id=12]
-[ext_resource path="res://sprites/bg_01.png" type="Texture" id=13]
-[ext_resource path="res://sprites/bg_05.png" type="Texture" id=14]
+[ext_resource path="res://sprites/backgrounds/forest_bg_02.png" type="Texture" id=11]
+[ext_resource path="res://sprites/backgrounds/forest_bg_04.png" type="Texture" id=12]
 [ext_resource path="res://sounds/the_dark_forest_of_lost_warriors.ogg" type="AudioStream" id=15]
 [ext_resource path="res://sprites/tilesets.png" type="Texture" id=16]
 [ext_resource path="res://sprites/mist.png" type="Texture" id=17]
@@ -345,19 +344,8 @@ script = ExtResource( 8 )
 [node name="parallax_background" type="ParallaxBackground" parent="."]
 
 [node name="sprite" type="Sprite" parent="parallax_background"]
-self_modulate = Color( 0.2, 0.235294, 0.341176, 1 )
 scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 14 )
-centered = false
-
-[node name="parallax_layer4" type="ParallaxLayer" parent="parallax_background"]
-motion_scale = Vector2( 0.1, 1 )
-motion_mirroring = Vector2( 320, 0 )
-
-[node name="sprite" type="Sprite" parent="parallax_background/parallax_layer4"]
-self_modulate = Color( 0.2, 0.235294, 0.341176, 1 )
-scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 9 )
+texture = ExtResource( 12 )
 centered = false
 
 [node name="parallax_layer3" type="ParallaxLayer" parent="parallax_background"]
@@ -365,9 +353,8 @@ motion_scale = Vector2( 0.2, 1 )
 motion_mirroring = Vector2( 320, 0 )
 
 [node name="sprite" type="Sprite" parent="parallax_background/parallax_layer3"]
-self_modulate = Color( 0.2, 0.235294, 0.341176, 1 )
 scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 12 )
+texture = ExtResource( 3 )
 centered = false
 
 [node name="parallax_layer2" type="ParallaxLayer" parent="parallax_background"]
@@ -375,7 +362,6 @@ motion_scale = Vector2( 0.4, 1 )
 motion_mirroring = Vector2( 320, 0 )
 
 [node name="sprite" type="Sprite" parent="parallax_background/parallax_layer2"]
-self_modulate = Color( 0.2, 0.235294, 0.341176, 1 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 11 )
 centered = false
@@ -385,9 +371,8 @@ motion_scale = Vector2( 0.6, 1 )
 motion_mirroring = Vector2( 320, 0 )
 
 [node name="sprite" type="Sprite" parent="parallax_background/parallax_layer"]
-self_modulate = Color( 0.145098, 0.443137, 0.47451, 1 )
 scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 13 )
+texture = ExtResource( 9 )
 centered = false
 
 [node name="mist" type="Sprite" parent="parallax_background"]

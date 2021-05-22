@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/lavaland.ogg-080feba2487e258209dd86d49da20462.oggstr"
+
+[deps]
+
+source_file="res://sounds/lavaland.ogg"
+dest_files=[ "res://.import/lavaland.ogg-080feba2487e258209dd86d49da20462.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

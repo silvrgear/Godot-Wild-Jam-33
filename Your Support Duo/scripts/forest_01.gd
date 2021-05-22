@@ -7,7 +7,7 @@ func _ready():
 	$characters/player.get_node("hud/skill_box/skill_01").show()
 	
 	$characters/player.get_node("follow_cam/cam").limit_right = 1232
-	$objects/treasure_end.jokes = "This guy..."
+	$objects/treasure_end.jokes = "Sooner or later karma will bring this guy down."
 	
 	var np_lbl = $bg_music/now_playing/panel/label
 	np_lbl.text = "The Dark Forest of Lost Warriors by bjon12345abc"
