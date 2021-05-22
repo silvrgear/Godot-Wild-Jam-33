@@ -107,6 +107,7 @@ func hurt(dmg_dealt):
 			$hero_anim.play("dead")
 			$col.set_deferred("disabled", true)
 			
+			$hero/weap/looong.hide()
 			get_parent().get_parent().get_node("gui/blood_stained").show()
 			get_parent().get_parent().get_node("gui/retry_btn").show()
 	pass

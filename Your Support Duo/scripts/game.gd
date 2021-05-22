@@ -2,7 +2,7 @@ extends Node2D
 
 var levels = ["plains_01", "plains_02", "forest_01", "forest_02", "cave_01",
 				"castle_01", "castle_02"]
-var curr_level = 5
+var curr_level = -1
 
 var heroes = [0,5,10] #temp
 var weapons = [0,3,6]

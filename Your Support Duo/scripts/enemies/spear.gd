@@ -1,19 +1,27 @@
 extends Area2D
 
-var damage = 20
+var damage
 
 var hit = false
+var hero
 
 func _ready():
-	
+	hero = get_parent().get_parent().get_node("characters/player/hero")
 	pass
 
 func _physics_process(delta):
+
 	if hit == false:
-		translate(Vector2(-100 * delta, -20))
+		look_at(hero.global_position)
+		target_hero()
 	else:
 		translate(Vector2.ZERO)
 
+func target_hero():
+	var tw = $tween
+	tw.interpolate_property(self, "global_position", global_position, hero.global_position,
+							0.2, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	tw.start()
 
 func _on_projectile_body_entered(body):
 	hit = true

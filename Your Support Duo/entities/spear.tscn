@@ -4,8 +4,8 @@
 [ext_resource path="res://sounds/sword-knife_sfx.wav" type="AudioStream" id=2]
 [ext_resource path="res://sprites/enemies/boss_weapon.png" type="Texture" id=3]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 5.0
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 6 )
 
 [sub_resource type="StreamTexture" id=2]
 load_path = "res://.import/effects.png-b9f41f42b55ad8862df2d751f09eeb4d.stex"
@@ -19,11 +19,12 @@ collision_layer = 0
 script = ExtResource( 1 )
 
 [node name="col" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 4 )
+position = Vector2( 0, 2 )
 shape = SubResource( 1 )
 
 [node name="sprite" type="Sprite" parent="."]
 position = Vector2( 0, 2 )
+rotation = 1.57079
 texture = ExtResource( 3 )
 
 [node name="color" type="Node2D" parent="."]
@@ -49,9 +50,12 @@ color = Color( 0.364706, 0.152941, 0.364706, 1 )
 [node name="sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
 pitch_scale = 0.3
+autoplay = true
 
 [node name="timer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="tween" type="Tween" parent="."]
 [connection signal="body_entered" from="." to="." method="_on_projectile_body_entered"]
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

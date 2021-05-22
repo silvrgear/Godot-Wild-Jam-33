@@ -1,18 +1,20 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://sprites/tilesets.png" type="Texture" id=1]
-[ext_resource path="res://sprites/backgrounds/cave_bg_06.png" type="Texture" id=2]
+[ext_resource path="res://sprites/backgrounds/castle_03.png" type="Texture" id=2]
 [ext_resource path="res://sprites/mist.png" type="Texture" id=3]
-[ext_resource path="res://sprites/backgrounds/cave_bg_02.png" type="Texture" id=4]
-[ext_resource path="res://sprites/backgrounds/cave_bg_03.png" type="Texture" id=5]
-[ext_resource path="res://sprites/backgrounds/cave_bg_01.png" type="Texture" id=6]
-[ext_resource path="res://sprites/backgrounds/cave_bg_04.png" type="Texture" id=7]
+[ext_resource path="res://sprites/backgrounds/castle_02.png" type="Texture" id=4]
+[ext_resource path="res://sprites/backgrounds/castle_04.png" type="Texture" id=5]
+[ext_resource path="res://sprites/backgrounds/castle_01.png" type="Texture" id=6]
+[ext_resource path="res://fonts/futile_font.tres" type="DynamicFont" id=7]
 [ext_resource path="res://sounds/button_click.wav" type="AudioStream" id=8]
-[ext_resource path="res://sprites/backgrounds/cave_bg_05.png" type="Texture" id=9]
+[ext_resource path="res://entities/gold_end.tscn" type="PackedScene" id=9]
 [ext_resource path="res://sounds/fantasy_armies.ogg" type="AudioStream" id=10]
+[ext_resource path="res://entities/boss.tscn" type="PackedScene" id=11]
+[ext_resource path="res://entities/goblin.tscn" type="PackedScene" id=12]
+[ext_resource path="res://entities/slime_red.tscn" type="PackedScene" id=13]
 [ext_resource path="res://entities/now_playing.tscn" type="PackedScene" id=14]
 [ext_resource path="res://entities/player.tscn" type="PackedScene" id=15]
-[ext_resource path="res://entities/treasure_end.tscn" type="PackedScene" id=17]
 [ext_resource path="res://entities/retry_btn.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scripts/castle_02.gd" type="Script" id=21]
 
@@ -348,8 +350,294 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 4, 16, 4 )
 14/shapes = [  ]
 14/z_index = 0
 
-[sub_resource type="StyleBoxFlat" id=14]
+[sub_resource type="Animation" id=14]
+resource_name = "bonk"
+length = 12.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("hero:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 10, 10.3, 10.6, 10.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1, 1 ), Vector2( -1, 1 ), Vector2( -1, 1 ), Vector2( -1, 1 ), Vector2( -1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("control/hero_01:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -36, -32 ), Vector2( -36, -42 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("control/hero_01:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2, 2.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("control/hero_02:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 2.5, 4.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("control/hero_02:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 2.5, 4.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -36, -32 ), Vector2( -36, -42 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("control/hero_01:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 2.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("control/hero_02:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 2.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("support:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -16, 0 ), Vector2( -16, 0 ), Vector2( 6, 0 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("control/hero_03:rect_position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 7, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -36, -32 ), Vector2( -36, -42 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("control/hero_03:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 7, 8.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("control/hero_03:self_modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 7, 8, 8.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("control/hero_04:rect_position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 8.5, 9.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -36, -32 ), Vector2( -36, -42 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("control/hero_04:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 8.5, 10 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("control/hero_04:self_modulate")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 8.5, 9.5, 10 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("support/weap:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0, 10, 10.2, 10.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, 2 ), Vector2( 8, 2 ), Vector2( 4, -10 ), Vector2( 12, 5 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("support/weap:scale")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 10, 10.2, 10.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1.25, 1.25 ), Vector2( 1.25, 1.25 ) ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("support/weap:rotation_degrees")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0, 10, 10.2, 10.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 60.0, 60.0, -8.35947, 107.644 ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("hero:position")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 10, 10.3, 10.6, 10.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 24, 0 ), Vector2( 32, 0 ), Vector2( 46, 0 ), Vector2( 69.0001, 3 ) ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("hero:rotation_degrees")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 10, 10.3, 10.6, 10.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 108.907, 217.259, 447.308 ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("control/support_01:rect_position")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 10.9, 11.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -58, -32 ), Vector2( -58, -42 ) ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("control/support_01:visible")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0, 10.9, 12 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/21/type = "value"
+tracks/21/path = NodePath("control/support_01:self_modulate")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 10.9, 11.6, 12 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="StyleBoxFlat" id=15]
 bg_color = Color( 0.72549, 0, 0, 0.588235 )
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.243137, 0.243137, 0.243137, 1 )
+
+[sub_resource type="Animation" id=17]
+resource_name = "blink"
+tracks/0/type = "value"
+tracks/0/path = NodePath("label:custom_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.254902, 0.65098, 0.964706, 1 ), Color( 0.494118, 0.776471, 1, 1 ), Color( 0.254902, 0.65098, 0.964706, 1 ), Color( 0.494118, 0.776471, 1, 1 ), Color( 0.254902, 0.65098, 0.964706, 1 ), Color( 0.494118, 0.776471, 1, 1 ) ]
+}
 
 [node name="castle_02" type="Node2D"]
 script = ExtResource( 21 )
@@ -358,25 +646,7 @@ script = ExtResource( 21 )
 
 [node name="sprite" type="Sprite" parent="parallax_background"]
 scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 2 )
-centered = false
-
-[node name="parallax_layer5" type="ParallaxLayer" parent="parallax_background"]
-motion_scale = Vector2( 0.3, 1 )
-motion_mirroring = Vector2( 320, 0 )
-
-[node name="sprite" type="Sprite" parent="parallax_background/parallax_layer5"]
-scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 9 )
-centered = false
-
-[node name="parallax_layer4" type="ParallaxLayer" parent="parallax_background"]
-motion_scale = Vector2( 0.3, 1 )
-motion_mirroring = Vector2( 320, 0 )
-
-[node name="sprite" type="Sprite" parent="parallax_background/parallax_layer4"]
-scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 7 )
+texture = ExtResource( 5 )
 centered = false
 
 [node name="parallax_layer3" type="ParallaxLayer" parent="parallax_background"]
@@ -385,7 +655,7 @@ motion_mirroring = Vector2( 320, 0 )
 
 [node name="sprite" type="Sprite" parent="parallax_background/parallax_layer3"]
 scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 5 )
+texture = ExtResource( 2 )
 centered = false
 
 [node name="parallax_layer2" type="ParallaxLayer" parent="parallax_background"]
@@ -407,7 +677,7 @@ texture = ExtResource( 6 )
 centered = false
 
 [node name="mist" type="Sprite" parent="parallax_background"]
-self_modulate = Color( 1, 0, 0, 1 )
+self_modulate = Color( 0.745098, 0.294118, 0.74902, 1 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
 centered = false
@@ -426,21 +696,155 @@ cell_size = Vector2( 16, 16 )
 collision_layer = 4
 collision_mask = 0
 format = 1
-tile_data = PoolIntArray( 589824, 10, 0, 589825, 10, 0, 589826, 10, 0, 589827, 10, 0, 589828, 10, 0, 589829, 10, 0, 589830, 10, 0, 589831, 10, 0, 589832, 10, 0, 589833, 10, 0, 589834, 10, 0, 589835, 10, 0, 589836, 10, 0, 589837, 10, 0, 589838, 10, 0, 589839, 10, 0, 589840, 10, 0, 589841, 10, 0, 589842, 10, 0, 589843, 10, 0, 589844, 10, 0, 589845, 10, 0, 589846, 10, 0, 589847, 10, 0, 589848, 10, 0, 589849, 10, 0, 589850, 10, 0, 589851, 10, 0, 589852, 10, 0, 589853, 10, 0, 589854, 10, 0, 589855, 10, 0, 589856, 10, 0, 589857, 10, 0, 589858, 10, 0, 589859, 10, 0, 589860, 10, 0, 589861, 10, 0, 589862, 10, 0, 589863, 10, 0, 589864, 10, 0, 589865, 10, 0, 589866, 10, 0, 589867, 10, 0, 589868, 10, 0, 589869, 10, 0, 589870, 10, 0, 589871, 10, 0, 589872, 10, 0, 589873, 10, 0, 589874, 10, 0, 589875, 10, 0, 589876, 10, 0, 589877, 10, 0, 589878, 10, 0, 589879, 10, 0, 589880, 10, 0, 589881, 10, 0, 589882, 10, 0, 589883, 10, 0, 589884, 10, 0, 589885, 10, 0, 589886, 10, 0, 589887, 10, 0, 589888, 10, 0, 589889, 10, 0, 589890, 10, 0, 589891, 10, 0, 589892, 10, 0, 589893, 10, 0, 589894, 10, 0, 589895, 10, 0, 589896, 10, 0, 589897, 10, 0, 589898, 10, 0, 589899, 10, 0, 589900, 10, 0, 655360, 13, 0, 655361, 13, 0, 655362, 13, 0, 655363, 13, 0, 655364, 13, 0, 655365, 13, 0, 655366, 13, 0, 655367, 13, 0, 655368, 13, 0, 655369, 13, 0, 655370, 13, 0, 655371, 13, 0, 655372, 13, 0, 655373, 13, 0, 655374, 13, 0, 655375, 13, 0, 655376, 13, 0, 655377, 13, 0, 655378, 13, 0, 655379, 13, 0, 655380, 13, 0, 655381, 13, 0, 655382, 13, 0, 655383, 13, 0, 655384, 13, 0, 655385, 13, 0, 655386, 13, 0, 655387, 13, 0, 655388, 13, 0, 655389, 13, 0, 655390, 13, 0, 655391, 13, 0, 655392, 13, 0, 655393, 13, 0, 655394, 13, 0, 655395, 13, 0, 655396, 13, 0, 655397, 13, 0, 655398, 13, 0, 655399, 13, 0, 655400, 13, 0, 655401, 13, 0, 655402, 13, 0, 655403, 13, 0, 655404, 13, 0, 655405, 13, 0, 655406, 13, 0, 655407, 13, 0, 655408, 13, 0, 655409, 13, 0, 655410, 13, 0, 655411, 13, 0, 655412, 13, 0, 655413, 13, 0, 655414, 13, 0, 655415, 13, 0, 655416, 13, 0, 655417, 13, 0, 655418, 13, 0, 655419, 13, 0, 655420, 13, 0, 655421, 13, 0, 655422, 13, 0, 655423, 13, 0, 655424, 13, 0, 655425, 13, 0, 655426, 13, 0, 655427, 13, 0, 655428, 13, 0, 655429, 13, 0, 655430, 13, 0, 655431, 13, 0, 655432, 13, 0, 655433, 13, 0, 655434, 13, 0, 655435, 13, 0, 655436, 13, 0, 720896, 13, 0, 720897, 13, 0, 720898, 13, 0, 720899, 13, 0, 720900, 13, 0, 720901, 13, 0, 720902, 13, 0, 720903, 13, 0, 720904, 13, 0, 720905, 13, 0, 720906, 13, 0, 720907, 13, 0, 720908, 13, 0, 720909, 13, 0, 720910, 13, 0, 720911, 13, 0, 720912, 13, 0, 720913, 13, 0, 720914, 13, 0, 720915, 13, 0, 720916, 13, 0, 720917, 13, 0, 720918, 13, 0, 720919, 13, 0, 720920, 13, 0, 720921, 13, 0, 720922, 13, 0, 720923, 13, 0, 720924, 13, 0, 720925, 13, 0, 720926, 13, 0, 720927, 13, 0, 720928, 13, 0, 720929, 13, 0, 720930, 13, 0, 720931, 13, 0, 720932, 13, 0, 720933, 13, 0, 720934, 13, 0, 720935, 13, 0, 720936, 13, 0, 720937, 13, 0, 720938, 13, 0, 720939, 13, 0, 720940, 13, 0, 720941, 13, 0, 720942, 13, 0, 720943, 13, 0, 720944, 13, 0, 720945, 13, 0, 720946, 13, 0, 720947, 13, 0, 720948, 13, 0, 720949, 13, 0, 720950, 13, 0, 720951, 13, 0, 720952, 13, 0, 720953, 13, 0, 720954, 13, 0, 720955, 13, 0, 720956, 13, 0, 720957, 13, 0, 720958, 13, 0, 720959, 13, 0, 720960, 13, 0, 720961, 13, 0, 720962, 13, 0, 720963, 13, 0, 720964, 13, 0, 720965, 13, 0, 720966, 13, 0, 720967, 13, 0, 720968, 13, 0, 720969, 13, 0, 720970, 13, 0, 720971, 13, 0, 720972, 13, 0 )
+tile_data = PoolIntArray( 589824, 10, 0, 589825, 10, 0, 589826, 10, 0, 589827, 10, 0, 589828, 10, 0, 589829, 10, 0, 589830, 10, 0, 589831, 10, 0, 589832, 10, 0, 589833, 10, 0, 589834, 10, 0, 589835, 10, 0, 589836, 10, 0, 589837, 10, 0, 589838, 10, 0, 589839, 10, 0, 589840, 10, 0, 589841, 10, 0, 589842, 10, 0, 589843, 10, 0, 589844, 10, 0, 589845, 10, 0, 589846, 10, 0, 589847, 10, 0, 589848, 10, 0, 589849, 10, 0, 589850, 10, 0, 589851, 10, 0, 589852, 10, 0, 589853, 10, 0, 589854, 10, 0, 589855, 10, 0, 589856, 10, 0, 589857, 10, 0, 589858, 10, 0, 589859, 10, 0, 589860, 10, 0, 589861, 10, 0, 589862, 10, 0, 589863, 10, 0, 589864, 10, 0, 589865, 10, 0, 589866, 10, 0, 589867, 10, 0, 589868, 10, 0, 589869, 10, 0, 589870, 10, 0, 589871, 10, 0, 589872, 10, 0, 589873, 10, 0, 589874, 10, 0, 589875, 10, 0, 589876, 10, 0, 589877, 10, 0, 589878, 10, 0, 589879, 10, 0, 589880, 10, 0, 589881, 10, 0, 589882, 10, 0, 589883, 10, 0, 589884, 10, 0, 589885, 10, 0, 589886, 10, 0, 589887, 10, 0, 589888, 10, 0, 589889, 10, 0, 589890, 10, 0, 589891, 10, 0, 589892, 10, 0, 589893, 10, 0, 589894, 10, 0, 589895, 10, 0, 589896, 10, 0, 589897, 10, 0, 589898, 10, 0, 589899, 10, 0, 589900, 10, 0, 589901, 10, 0, 589902, 10, 0, 589903, 10, 0, 589904, 10, 0, 589905, 10, 0, 589906, 10, 0, 589907, 10, 0, 589908, 10, 0, 589909, 10, 0, 589910, 10, 0, 589911, 10, 0, 589912, 10, 0, 589913, 10, 0, 589914, 10, 0, 589915, 10, 0, 589916, 10, 0, 589917, 10, 0, 589918, 10, 0, 589919, 10, 0, 589920, 10, 0, 589921, 10, 0, 589922, 10, 0, 589923, 10, 0, 589924, 10, 0, 589925, 10, 0, 655360, 13, 0, 655361, 13, 0, 655362, 13, 0, 655363, 13, 0, 655364, 13, 0, 655365, 13, 0, 655366, 13, 0, 655367, 13, 0, 655368, 13, 0, 655369, 13, 0, 655370, 13, 0, 655371, 13, 0, 655372, 13, 0, 655373, 13, 0, 655374, 13, 0, 655375, 13, 0, 655376, 13, 0, 655377, 13, 0, 655378, 13, 0, 655379, 13, 0, 655380, 13, 0, 655381, 13, 0, 655382, 13, 0, 655383, 13, 0, 655384, 13, 0, 655385, 13, 0, 655386, 13, 0, 655387, 13, 0, 655388, 13, 0, 655389, 13, 0, 655390, 13, 0, 655391, 13, 0, 655392, 13, 0, 655393, 13, 0, 655394, 13, 0, 655395, 13, 0, 655396, 13, 0, 655397, 13, 0, 655398, 13, 0, 655399, 13, 0, 655400, 13, 0, 655401, 13, 0, 655402, 13, 0, 655403, 13, 0, 655404, 13, 0, 655405, 13, 0, 655406, 13, 0, 655407, 13, 0, 655408, 13, 0, 655409, 13, 0, 655410, 13, 0, 655411, 13, 0, 655412, 13, 0, 655413, 13, 0, 655414, 13, 0, 655415, 13, 0, 655416, 13, 0, 655417, 13, 0, 655418, 13, 0, 655419, 13, 0, 655420, 13, 0, 655421, 13, 0, 655422, 13, 0, 655423, 13, 0, 655424, 13, 0, 655425, 13, 0, 655426, 13, 0, 655427, 13, 0, 655428, 13, 0, 655429, 13, 0, 655430, 13, 0, 655431, 13, 0, 655432, 13, 0, 655433, 13, 0, 655434, 13, 0, 655435, 13, 0, 655436, 13, 0, 655437, 13, 0, 655438, 13, 0, 655439, 13, 0, 655440, 13, 0, 655441, 13, 0, 655442, 13, 0, 655443, 13, 0, 655444, 13, 0, 655445, 13, 0, 655446, 13, 0, 655447, 13, 0, 655448, 13, 0, 655449, 13, 0, 655450, 13, 0, 655451, 13, 0, 655452, 13, 0, 655453, 13, 0, 655454, 13, 0, 655455, 13, 0, 655456, 13, 0, 655457, 13, 0, 655458, 13, 0, 655459, 13, 0, 655460, 13, 0, 655461, 13, 0, 720896, 13, 0, 720897, 13, 0, 720898, 13, 0, 720899, 13, 0, 720900, 13, 0, 720901, 13, 0, 720902, 13, 0, 720903, 13, 0, 720904, 13, 0, 720905, 13, 0, 720906, 13, 0, 720907, 13, 0, 720908, 13, 0, 720909, 13, 0, 720910, 13, 0, 720911, 13, 0, 720912, 13, 0, 720913, 13, 0, 720914, 13, 0, 720915, 13, 0, 720916, 13, 0, 720917, 13, 0, 720918, 13, 0, 720919, 13, 0, 720920, 13, 0, 720921, 13, 0, 720922, 13, 0, 720923, 13, 0, 720924, 13, 0, 720925, 13, 0, 720926, 13, 0, 720927, 13, 0, 720928, 13, 0, 720929, 13, 0, 720930, 13, 0, 720931, 13, 0, 720932, 13, 0, 720933, 13, 0, 720934, 13, 0, 720935, 13, 0, 720936, 13, 0, 720937, 13, 0, 720938, 13, 0, 720939, 13, 0, 720940, 13, 0, 720941, 13, 0, 720942, 13, 0, 720943, 13, 0, 720944, 13, 0, 720945, 13, 0, 720946, 13, 0, 720947, 13, 0, 720948, 13, 0, 720949, 13, 0, 720950, 13, 0, 720951, 13, 0, 720952, 13, 0, 720953, 13, 0, 720954, 13, 0, 720955, 13, 0, 720956, 13, 0, 720957, 13, 0, 720958, 13, 0, 720959, 13, 0, 720960, 13, 0, 720961, 13, 0, 720962, 13, 0, 720963, 13, 0, 720964, 13, 0, 720965, 13, 0, 720966, 13, 0, 720967, 13, 0, 720968, 13, 0, 720969, 13, 0, 720970, 13, 0, 720971, 13, 0, 720972, 13, 0, 720973, 13, 0, 720974, 13, 0, 720975, 13, 0, 720976, 13, 0, 720977, 13, 0, 720978, 13, 0, 720979, 13, 0, 720980, 13, 0, 720981, 13, 0, 720982, 13, 0, 720983, 13, 0, 720984, 13, 0, 720985, 13, 0, 720986, 13, 0, 720987, 13, 0, 720988, 13, 0, 720989, 13, 0, 720990, 13, 0, 720991, 13, 0, 720992, 13, 0, 720993, 13, 0, 720994, 13, 0, 720995, 13, 0, 720996, 13, 0, 720997, 13, 0 )
 
 [node name="characters" type="Node2D" parent="."]
 
 [node name="player" parent="characters" instance=ExtResource( 15 )]
 position = Vector2( 65, 140 )
 
+[node name="hero" parent="characters/player" index="1"]
+position = Vector2( 69.0001, 3 )
+rotation = 7.807
+scale = Vector2( -1, 1 )
+
+[node name="chatbox" parent="characters/player" index="3"]
+visible = false
+
+[node name="cam" parent="characters/player/follow_cam" index="0"]
+limit_right = 1574
+
+[node name="bonk_anim" type="AnimationPlayer" parent="characters/player"]
+anims/bonk = SubResource( 14 )
+
+[node name="control" type="Control" parent="characters/player"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hero_01" type="Label" parent="characters/player/control"]
+margin_left = -36.0
+margin_top = -32.0
+margin_right = 214.0
+margin_bottom = -1.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.392157 )
+custom_constants/shadow_offset_y = 2
+text = "I did it! I defeated the monster residing in the Kingdom!"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hero_02" type="Label" parent="characters/player/control"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = -36.0
+margin_top = -42.0
+margin_right = 214.0
+margin_bottom = -11.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.392157 )
+custom_constants/shadow_offset_y = 2
+text = "I'm the HERO!"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hero_03" type="Label" parent="characters/player/control"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = -36.0
+margin_top = -42.0
+margin_right = 214.0
+margin_bottom = -11.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.392157 )
+custom_constants/shadow_offset_y = 2
+text = "Is this gonna be a kiss?!"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hero_04" type="Label" parent="characters/player/control"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = -36.0
+margin_top = -42.0
+margin_right = 214.0
+margin_bottom = -11.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.392157 )
+custom_constants/shadow_offset_y = 2
+text = "I'm not ready yet!"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="support_01" type="Label" parent="characters/player/control"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = -58.0
+margin_top = -42.0
+margin_right = 192.0
+margin_bottom = -11.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 0.254902, 0.65098, 0.964706, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.392157 )
+custom_constants/shadow_offset_y = 2
+text = "Justice served!"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="enemies" type="Node2D" parent="."]
+
+[node name="boss" parent="enemies" instance=ExtResource( 11 )]
+position = Vector2( 945, 141 )
+
+[node name="goblin" parent="enemies" instance=ExtResource( 12 )]
+position = Vector2( 1101, 140 )
+
+[node name="goblin4" parent="enemies" instance=ExtResource( 12 )]
+position = Vector2( 1181, 140 )
+
+[node name="goblin6" parent="enemies" instance=ExtResource( 12 )]
+position = Vector2( 1264, 140 )
+
+[node name="slime_red" parent="enemies" instance=ExtResource( 13 )]
+position = Vector2( 1224, 140 )
 
 [node name="projectiles" type="Node2D" parent="."]
 
 [node name="objects" type="Node2D" parent="."]
 
-[node name="treasure_end" parent="objects" instance=ExtResource( 17 )]
-position = Vector2( 944, 140 )
+[node name="gold_end" parent="objects" instance=ExtResource( 9 )]
+position = Vector2( 1413, 140 )
 
 [node name="gui" type="CanvasLayer" parent="."]
 
@@ -448,7 +852,7 @@ position = Vector2( 944, 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 14 )
+custom_styles/panel = SubResource( 15 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -460,4 +864,37 @@ visible = false
 [node name="btn_click" type="AudioStreamPlayer" parent="gui"]
 stream = ExtResource( 8 )
 volume_db = 8.0
+
+[node name="panel" type="Panel" parent="gui"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="gui/panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -73.5
+margin_top = -7.0
+margin_right = 74.5
+margin_bottom = 7.0
+rect_pivot_offset = Vector2( 74, 0 )
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 0.254902, 0.65098, 0.964706, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.392157 )
+custom_constants/shadow_offset_y = 2
+text = "Thanks for playing!"
+align = 1
+valign = 1
+
+[node name="anim" type="AnimationPlayer" parent="gui/panel"]
+anims/blink = SubResource( 17 )
+[connection signal="animation_finished" from="characters/player/bonk_anim" to="." method="_on_bonk_anim_animation_finished"]
 [connection signal="pressed" from="gui/retry_btn" to="." method="_on_retry_btn_pressed"]
+
+[editable path="characters/player"]

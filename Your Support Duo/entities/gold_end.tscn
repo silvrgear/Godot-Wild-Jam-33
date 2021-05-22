@@ -1,0 +1,100 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://sounds/button_click.wav" type="AudioStream" id=1]
+[ext_resource path="res://sprites/gold_chest.png" type="Texture" id=2]
+[ext_resource path="res://fonts/futile_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://scripts/gold_end.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 0.341176 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "move"
+length = 8.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("label:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 353, 0 ), Vector2( -483, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "blink"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("label:custom_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.239216, 0.396078, 0.458824, 1 ), Color( 0.266667, 0.592157, 0.721569, 1 ), Color( 0.239216, 0.396078, 0.458824, 1 ) ]
+}
+
+[node name="gold_end" type="Area2D"]
+collision_layer = 0
+script = ExtResource( 4 )
+
+[node name="sprite" type="Sprite" parent="."]
+z_index = -2
+texture = ExtResource( 2 )
+
+[node name="col" type="CollisionShape2D" parent="."]
+position = Vector2( 31, -2 )
+shape = SubResource( 1 )
+
+[node name="gui" type="CanvasLayer" parent="."]
+
+[node name="end" type="Control" parent="gui"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="headline" type="Panel" parent="gui/end"]
+anchor_right = 1.0
+margin_bottom = 31.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="gui/end/headline"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 353.0
+margin_right = 588.0
+rect_pivot_offset = Vector2( 190, 0 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.239216, 0.396078, 0.458824, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.392157 )
+text = "No reward is given to you as the hero takes it all."
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="anim" type="AnimationPlayer" parent="gui/end/headline"]
+anims/move = SubResource( 3 )
+
+[node name="blinker" type="AnimationPlayer" parent="gui/end/headline"]
+anims/blink = SubResource( 4 )
+
+[node name="btn_click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = 8.0
+[connection signal="body_entered" from="." to="." method="_on_gold_end_body_entered"]

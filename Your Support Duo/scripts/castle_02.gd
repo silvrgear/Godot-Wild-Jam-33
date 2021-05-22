@@ -14,8 +14,8 @@ func _ready():
 	$characters/player.get_node("support").skills["invincibility"] = true
 	$characters/player.get_node("hud/skill_box/skill_04").show()
 	
-	$characters/player.get_node("follow_cam/cam").limit_right = 1100
-	$objects/treasure_end.jokes = "When is the time this guy gets hit with lightning or something."
+	$characters/player.get_node("follow_cam/cam").limit_right = 1574
+	$objects/gold_end.jokes = "She's so done with this."
 	
 	var np_lbl = $bg_music/now_playing/panel/label
 	np_lbl.text = "Fantasy Armies by Alexandr Zhelanov"
@@ -31,4 +31,12 @@ func _on_retry_btn_pressed():
 	$gui/btn_click.play()
 	get_tree().paused = false
 	get_parent().reload_this_scene("res://scenes/castle_02.tscn")
+	pass # Replace with function body.
+
+
+func _on_bonk_anim_animation_finished(anim_name):
+	if anim_name == "bonk":
+		$characters/player/hud/skill_box.hide()
+		$gui/panel.show()
+		$gui/panel/anim.play("blink")
 	pass # Replace with function body.
